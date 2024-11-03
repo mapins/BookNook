@@ -1,0 +1,39 @@
+@mixin responsive($medida: 64em) {
+  @media screen and (max-width: $medida) {
+    @content;
+  }
+}
+
+@mixin flex(
+  $direction: row,
+  $align: center,
+  $justify: center,
+  $wrap: nowrap,
+  $gap: 0
+) {
+  display: flex;
+  flex-direction: $direction;
+  align-items: $align;
+  justify-content: $justify;
+  flex-wrap: $wrap;
+  gap: $gap;
+}
+
+@mixin skeleton() {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background-color: var(--c-graphite);
+  transform: skewX(-40deg);
+  border-radius: 0.25em;
+  filter: brightness(1.5);
+  animation: shimmerEffect 1s infinite linear;
+
+  @keyframes shimmerEffect {
+    100% {
+      transform: translateX(100%);
+    }
+  }
+}

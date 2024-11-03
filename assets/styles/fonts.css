@@ -1,0 +1,36 @@
+@font-face {
+    font-family: 'lora';
+    src: url('https://fonts.gstatic.com/s/lora/v32/0QI6MX1D_JOuGQbT0gvTJPa787weuxJBp0ce8kY.woff2') format('woff2'),
+         url('https://fonts.gstatic.com/s/lora/v32/0QI6MX1D_JOuGQbT0gvTJPa787weuxJBp0o.woff') format('woff');
+    font-weight: 400; /* Peso regular */
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'lora-bold';
+    src: url('https://fonts.gstatic.com/s/lora/v32/0QI6MX1D_JOuMw_L0gvTJPa787weuxJBp0ce8kY.woff2') format('woff2'),
+         url('https://fonts.gstatic.com/s/lora/v32/0QI6MX1D_JOuMw_L0gvTJPa787weuxJBp0o.woff') format('woff');
+    font-weight: 700; /* Peso negrita */
+    font-style: normal;
+    font-display: swap;
+}
+
+
+@font-face {
+    font-family: 'rubik';
+    src: url('https://fonts.gstatic.com/s/lora/v32/0QI6MX1D_JOuGQbT0gvTJPa787weuxJBp0ce8kY.woff2') format('woff2'),
+         url('https://fonts.gstatic.com/s/lora/v32/0QI6MX1D_JOuGQbT0gvTJPa787weuxJBp0o.woff') format('woff');
+    font-weight: 400; /* Peso regular */
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'rubik-bold';
+    src: url('https://fonts.gstatic.com/s/lora/v32/0QI6MX1D_JOuMw_L0gvTJPa787weuxJBp0ce8kY.woff2') format('woff2'),
+         url('https://fonts.gstatic.com/s/lora/v32/0QI6MX1D_JOuMw_L0gvTJPa787weuxJBp0o.woff') format('woff');
+    font-weight: 700; /* Peso negrita */
+    font-style: normal;
+    font-display: swap;
+}
