@@ -1,0 +1,66 @@
+{
+  "extends": ["@commitlint/config-conventional"],
+  "rules": {
+    "subject-max-length": [2, "always", 50],
+    "subject-case": [2, "never"],
+    "scope-empty": [2, "never"],
+    "scope-case": [2, "never"],
+    "type-enum": [
+      2,
+      "always",
+      [
+        "build",
+        "chore",
+        "ci",
+        "docs",
+        "feat",
+        "fix",
+        "perf",
+        "refactor",
+        "revert",
+        "style",
+        "test"
+      ]
+    ],
+    "scope-enum": [
+      2,
+      "always",
+      [
+        "api",
+        "assets",
+        "authentication",
+        "components",
+        "composables",
+        "config",
+        "constants",
+        "core",
+        "dependencies",
+        "directives",
+        "documentation",
+        "infrastructure",
+        "interfaces",
+        "internationalization",
+        "layout",
+        "locales",
+        "middlewares",
+        "mocks",
+        "pages",
+        "plugins",
+        "public",
+        "readme",
+        "security",
+        "services",
+        "stores",
+        "styles",
+        "testing",
+        "todo",
+        "types",
+        "ui",
+        "utils",
+        "validations",
+        "views",
+        "vscode"
+      ]
+    ]
+  }
+}
