@@ -16,9 +16,9 @@ html {
 body {
   max-width: 120rem;
   margin: auto;
-  background-color: var(--c-black);
+  background-color: var(--c-white);
   font-family: var(--f-font-regular);
-  color: var(--c-white);
+  color: var(--c-black);
   min-height: 100vh;
   font-size: 100%;
 }
@@ -40,8 +40,8 @@ a {
   display: block;
   text-decoration: none;
   color: inherit;
-  font-size: var(--s-font-cta);
-  font-family: var(--f-font-light);
+  font-size: 1.2rem;
+  font-family: var(--f-font-bold);
   font-weight: 100;
 }
 

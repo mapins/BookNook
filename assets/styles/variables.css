@@ -1,8 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
 
 :root {
-  --c-black: #000000;
-  --c-primary: #c70039;
+  --c-black: #rgb(42, 42, 42);
+  --c-primary: #f1e3c0;
   --c-white: #ffffff;
   --c-graphite: #1a1a1a;
   --c-grey-light: #f0f0f0;
@@ -29,7 +29,7 @@
   --s-font-h3-mobile: 1.5rem;
   --s-font-h4-mobile: 1.3125rem;
   --s-margin-blocks: 8rem;
-  --s-padding-lateral: 8rem;
+  --s-padding-lateral: 6rem;
   --s-padding-lateral-mobile: 1rem;
 
   --t-transition-button: 0.3s;
