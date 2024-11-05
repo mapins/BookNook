@@ -1,34 +1,36 @@
 @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
 
 :root {
-    --c-black: #000000;
-    --c-primary:#C70039;
-    --c-white: #ffffff;
-    --c-graphite: #1a1a1a;
-    --c-grey-light: #f0f0f0;
-    --c-grey-medium: #707070;
-  
-    --c-static-black: #000000;
-    --c-static-white: #ffffff;
-  
-    --f-font-regular: 'Lora', sans-serif; 
-    --f-font-bold: 'Lora', sans-serif; 
-  
-    --s-border-radius-button: 0.25rem;
-    --s-border-radius-card: 0.625rem;
-    --s-font-h1: 3rem;
-    --s-font-h2: 3rem;
-    --s-font-h3: 2rem;
-    --s-font-h4: 1.5rem;
-    --s-font-p: 1rem;
-    --s-font-cta: 1rem;
-    --s-font-h1-mobile: 2rem;
-    --s-font-h2-mobile: 2rem;
-    --s-font-h3-mobile: 1.5rem;
-    --s-font-h4-mobile: 1.3125rem;
-    --s-margin-blocks: 8rem;
-    --s-padding-lateral: 8rem;
-    --s-padding-lateral-mobile: 1rem;
-  
-    --t-transition-button: 0.3s;
-  }
+  --c-black: #000000;
+  --c-primary: #c70039;
+  --c-white: #ffffff;
+  --c-graphite: #1a1a1a;
+  --c-grey-light: #f0f0f0;
+  --c-grey-medium: #707070;
+
+  --c-static-black: #000000;
+  --c-static-white: #ffffff;
+
+  --f-font-regular: 'Rubik', sans-serif;
+  --f-font-bold: 'Rubik-bold', sans-serif;
+  --f-font-semiBold: 'Rubik-SemiBold', sans-serif;
+  --f-font-light: 'Rubik-Light', sans-serif;
+
+  --s-border-radius-button: 0.25rem;
+  --s-border-radius-card: 0.625rem;
+  --s-font-h1: 3rem;
+  --s-font-h2: 3rem;
+  --s-font-h3: 2rem;
+  --s-font-h4: 1.5rem;
+  --s-font-p: 1rem;
+  --s-font-cta: 1rem;
+  --s-font-h1-mobile: 2rem;
+  --s-font-h2-mobile: 2rem;
+  --s-font-h3-mobile: 1.5rem;
+  --s-font-h4-mobile: 1.3125rem;
+  --s-margin-blocks: 8rem;
+  --s-padding-lateral: 8rem;
+  --s-padding-lateral-mobile: 1rem;
+
+  --t-transition-button: 0.3s;
+}
