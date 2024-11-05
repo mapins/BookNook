@@ -9,7 +9,7 @@ module.exports = {
     browser: true,
     es2021: true,
   },
-  extends: ['standard', 'prettier'],
+  extends: ['standard', 'prettier', '@vue/eslint-config-typescript'],
   plugins: ['prettier', 'vue'],
   overrides: [
     {
