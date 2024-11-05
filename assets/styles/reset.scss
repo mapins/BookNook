@@ -2,7 +2,6 @@
   margin: 0;
   padding: 0;
   border: 0;
-  box-sizing: border-box;
   vertical-align: baseline;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -42,7 +41,7 @@ a {
   text-decoration: none;
   color: inherit;
   font-size: var(--s-font-cta);
-  font-family: var(--f-font-extraLight);
+  font-family: var(--f-font-light);
   font-weight: 100;
 }
 
@@ -91,11 +90,13 @@ h2 {
   font-family: var(--f-font-light);
   font-size: clamp(var(--s-font-h2-mobile), 2.8vw, var(--s-font-h2));
 }
+
 h3 {
   font-family: var(--f-font-light);
   font-size: clamp(var(--s-font-h3-mobile), 2.8vw, var(--s-font-h3));
   line-height: 1.35em;
 }
+
 h4 {
   font-size: clamp(var(--s-font-h4-mobile), 2.8vw, var(--s-font-h4));
   font-family: var(--f-font-light);
@@ -105,7 +106,6 @@ h5,
 h6,
 p,
 span,
-a,
 blockquote,
 i,
 b,
@@ -120,7 +120,7 @@ blockquote:before,
 blockquote:after,
 q:before,
 q:after {
-  content: "";
+  content: '';
   content: none;
 }
 
@@ -165,7 +165,6 @@ svg {
   width: 100%;
   background: var(--c-primary);
   border-radius: 0.25em;
-
   @media (max-width: 53.625em) {
     width: 0;
   }

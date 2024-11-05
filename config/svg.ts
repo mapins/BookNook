@@ -1,8 +1,8 @@
 export const svgImports = {
   components: [
     {
-      path: "@/components/svg",
+      path: '@/components/svg',
       pathPrefix: false,
     },
   ],
-};
+}
