@@ -1,8 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
-
 :root {
-  --c-black: #rgb(42, 42, 42);
-  --c-primary: #f1e3c0;
+  --c-black: #000;
+  --c-primary: #c70039;
   --c-white: #ffffff;
   --c-graphite: #1a1a1a;
   --c-grey-light: #f0f0f0;
