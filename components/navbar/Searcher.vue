@@ -3,16 +3,13 @@ import Lens from '@/components/svg/Lens.vue'
 </script>
 <template>
   <section class="searcher__section">
-    <div class="searcher__input-wrapper">
-      <input v-model="searchTerm" class="searcher__input" placeholder="Buscar..." />
-      <span class="searcher__icon"><Lens /></span>
-    </div>
+    <span class="searcher__icon"><Lens /></span>
   </section>
 </template>
 
 <style lang="scss" scoped>
 .searcher {
-  &__input-wrapper {
+  /*  &__input-wrapper {
     position: relative;
   }
   &__input {
@@ -33,6 +30,6 @@ import Lens from '@/components/svg/Lens.vue'
     right: 0.8em;
     transform: translateY(-50%);
     pointer-events: none;
-  }
+  } */
 }
 </style>
