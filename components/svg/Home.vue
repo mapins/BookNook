@@ -9,13 +9,16 @@
     <g
       data-v-7b357a42=""
       fill="none"
-      stroke="#fff"
+      stroke="currentColor"
       stroke-width="1.5"
       stroke-linecap="round"
       stroke-miterlimit="10"
+      stroke-linejoin="round"
     >
-      <path data-v-7b357a42="" d="M16.4 16.7l6.3 6.5"></path>
-      <ellipse data-v-7b357a42="" cx="10.5" cy="9.8" rx="9.2" ry="9.1"></ellipse>
+      <path
+        data-v-7b357a42=""
+        d="M8.5 23.2H1.3V9L12 .8 22.7 9v14.2h-7.2v-5c0-1.9-1.6-3.4-3.5-3.4s-3.5 1.5-3.5 3.4v5z"
+      ></path>
     </g>
   </svg>
 </template>
