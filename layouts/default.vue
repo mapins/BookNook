@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import MainNavbar from '@/components/global/navbar/MainNavbar.vue'
 import MainFooter from '@/components/global/footer/MainFooter.vue'
-import Prueba from '~/components/Prueba.vue'
 </script>
 
 <template>
@@ -18,7 +17,6 @@ import Prueba from '~/components/Prueba.vue'
       </footer>
     </div>
   </div>
-  <Prueba />
 </template>
 
 <style scoped>
