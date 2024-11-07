@@ -1,27 +1,21 @@
-<script setup>
-import Home from '../svg/Home.vue'
-import Book from '../svg/Book.vue'
-import Compass from '../svg/Compass.vue'
-import Star from '../svg/Star.vue'
-import Lens from '@/components/svg/Lens.vue'
-</script>
+<script setup></script>
 <template>
   <section class="nav-link">
     <ul class="nav-link__ul">
       <li class="nav-link__li">
-        <NuxtLink href="#"><Home class="nav-link__icon" /></NuxtLink>
+        <NuxtLink href="#"><SvgHome class="nav-link__icon" /></NuxtLink>
       </li>
       <li class="nav-link__li">
-        <NuxtLink to="#"> <Book class="nav-link__icon" /></NuxtLink>
+        <NuxtLink to="#"> <SvgBook class="nav-link__icon" /></NuxtLink>
       </li>
       <li class="nav-link__li">
-        <NuxtLink to="#"> <Compass class="nav-link__icon" /></NuxtLink>
+        <NuxtLink to="#"> <SvgCompass class="nav-link__icon" /></NuxtLink>
       </li>
       <li class="nav-link__li">
-        <NuxtLink to="#"> <Star class="nav-link__icon" /></NuxtLink>
+        <NuxtLink to="#"> <SvgStar class="nav-link__icon" /></NuxtLink>
       </li>
       <li class="nav-link__li">
-        <NuxtLink to="#"> <Lens class="nav-link__icon" /> </NuxtLink>
+        <NuxtLink to="#"> <SvgLens class="nav-link__icon" /> </NuxtLink>
       </li>
     </ul>
   </section>
@@ -51,6 +45,9 @@ import Lens from '@/components/svg/Lens.vue'
     transition:
       fill 0.3s ease,
       transform 0.3s ease;
+    svg {
+      fill: var(--c-primary);
+    }
     &:hover {
       fill: var(--c-primary);
       transform: scale(1.1);
