@@ -1,11 +1,5 @@
 <template>
-  <svg
-    data-v-7b357a42=""
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-  >
+  <svg data-v-7b357a42="" width="24" height="24" viewBox="0 0 24 24">
     <g
       data-v-7b357a42=""
       fill="none"
