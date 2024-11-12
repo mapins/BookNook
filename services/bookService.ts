@@ -1,11 +1,12 @@
-const BASE_URL = 'http://localhost:3001'
+const BASE_URL = 'https://booknookapi-production.up.railway.app/books'
 
 export const getBooks = async () => {
   try {
-    const response = await fetch(`${BASE_URL}/books`)
+    const response = await fetch(`${BASE_URL}`)
     if (response) console.log('fetch bien')
     if (!response.ok) throw new Error('Error al obtener los libros')
     const data = await response.json()
+    console.log(data)
     return data
   } catch (error) {
     console.error('Error en la solicitud a la API:', error)
