@@ -1,18 +1,14 @@
 <script setup lang="ts">
-// Import Swiper Vue.js components
 import { Swiper, SwiperSlide } from 'swiper/vue'
-
-// Import Swiper styles
 import 'swiper/css'
 import 'swiper/css/scrollbar'
 import 'swiper/css/navigation'
-import 'swiper/css/pagination'
+import { Keyboard, Scrollbar, Navigation } from 'swiper/modules'
 
-// Import required modules
-import { Keyboard, Scrollbar, Navigation, Pagination } from 'swiper/modules'
+import Card from '@/components/Card.vue'
 import { getBooks } from '~/services/bookService'
 
-const modules = [Keyboard, Scrollbar, Navigation, Pagination]
+const modules = [Keyboard, Scrollbar, Navigation]
 
 const books = ref([])
 
@@ -42,11 +38,10 @@ onMounted(async () => {
       nextEl: '.swiper-button-next',
       prevEl: '.swiper-button-prev',
     }"
-    :pagination="{ clickable: true }"
     :modules="modules"
   >
     <SwiperSlide v-for="(book, index) in books" :key="index">
-      <img :src="book.coverpage" class="book-image" />
+      <Card :coverpage="book.coverpage" :book_id="book.book_id" :title="book.title" />
     </SwiperSlide>
 
     <div class="swiper-button-next" aria-label="Next slide"></div>
@@ -55,36 +50,30 @@ onMounted(async () => {
 </template>
 
 <style scoped lang="scss">
-.slider-banner {
-  height: 25rem;
-  --swiper-pagination-color: var(--c-primary);
-  --swiper-pagination-bullet-inactive-color: #999999;
-  --swiper-pagination-bullet-inactive-opacity: 1;
-  --swiper-pagination-bullet-size: 1rem;
-  --swiper-pagination-bullet-horizontal-gap: 0.375rem;
-  --swiper-button-next-disabled-display: none;
-}
-
 .swiper-button-next,
 .swiper-button-prev {
   display: flex;
   padding: 1em;
   width: 2.5em;
-  height: 2.5em;
+  height: 100%;
+  top: 1rem;
   &::after {
     font-size: 2em;
     font-weight: 1000;
-    color: var(--c-primary);
+    color: var(--c-white);
   }
   &:hover {
-    background-color: var(--c-grey-light);
+    background: rgba(0, 0, 0, 0.5);
     color: var(--c-white);
+    transition:
+      opacity 0.25s ease,
+      background-color 0.25s ease;
   }
 }
 
 .swiper {
   width: 85vw;
-  height: 35vh;
+  height: auto;
 }
 
 .swiper-slide {
@@ -93,13 +82,13 @@ onMounted(async () => {
   align-items: center;
   justify-content: center;
   position: relative;
+  width: 10rem;
 }
 
 .swiper-slide img {
   display: block;
   width: 10rem;
-  object-fit: contain;
-  max-height: 100%;
+  height: 20rem;
 }
 
 .book-image {
@@ -109,16 +98,16 @@ onMounted(async () => {
 
 @media only screen and (min-width: 48.0625rem) {
   .swiper-slide:first-child {
-    transition: transform 100ms;
+    transition: transform 1s;
   }
   .swiper-slide:first-child img {
-    transition: box-shadow 500ms;
+    transition: box-shadow 5s;
   }
   .swiper-slide.swiper-slide-active:first-child img {
     box-shadow: 0rem 2rem 5rem rgba(0, 0, 0, 0.35);
   }
   .swiper-slide:nth-child(2) {
-    transition: transform 100ms;
+    transition: transform 1s;
   }
 }
 </style>
