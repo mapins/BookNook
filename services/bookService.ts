@@ -16,9 +16,10 @@ export const getBooks = async () => {
 
 export const getBookById = async (bookId: number) => {
   try {
-    const response = await fetch(`${BASE_URL}/books/${bookId}`)
+    const response = await fetch(`${BASE_URL}/${bookId}`)
     if (!response.ok) throw new Error('Error al obtener el libro')
     const data = await response.json()
+    console.log(data)
     return data
   } catch (error) {
     console.error(`Error al obtener el libro con ID ${bookId}:`, error)
