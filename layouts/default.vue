@@ -37,6 +37,5 @@ import MainFooter from '@/components/global/footer/MainFooter.vue'
 
 .main__content {
   flex: 1;
-  padding: 1.25rem;
 }
 </style>
