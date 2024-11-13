@@ -1,8 +1,11 @@
 <script lang="ts" setup>
-const props = defineProps<{
+defineProps<{
   title: string
+  authors?: { name: string }[]
+  publicationDate?: number
+  pageCount?: number
   subtitle: string
-  backgroundImage: string
+  backgroundImage?: string
   buttonText?: string
   buttonLink?: string
 }>()
@@ -12,6 +15,13 @@ const props = defineProps<{
   <section class="hero">
     <div class="hero__content">
       <h1 class="hero__title">{{ title }}</h1>
+      <section class="info">
+        <span v-for="(author, index) in authors" :key="index">
+          {{ author.name }}<span v-if="index < authors.length - 1">, </span>
+        </span>
+        <p>{{ publicationDate }}</p>
+        <p>{{ pageCount }}</p>
+      </section>
       <p class="hero__subtitle">{{ subtitle }}</p>
       <NuxtLink v-if="buttonText" :to="buttonLink" class="hero__button">
         {{ buttonText }}
@@ -24,15 +34,13 @@ const props = defineProps<{
 .hero {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  padding: 5rem;
   height: 60vh;
-  padding: 2rem;
   color: var(--c-white);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  background-image: url(v-bind('backgroundImage'));
-  text-align: center;
   &__content {
     max-width: 40rem;
   }
