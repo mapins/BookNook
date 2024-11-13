@@ -1,9 +1,12 @@
-export interface User {
-  user_id: number
+export interface UserData {
   user_handle: string
   email_address: string
+  password: string
   first_name: string
   last_name: string
-  phone_number: string
-  created_at: string
+}
+
+export interface LoginData {
+  email: string
+  password: string
 }
