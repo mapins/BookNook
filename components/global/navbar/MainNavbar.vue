@@ -15,12 +15,13 @@ import NavButtons from '@/components/global/navbar/NavButtons.vue'
 
 <style lang="scss" scoped>
 .nav {
-  @include flex(column, $justify: flex-start, $gap: 5em);
+  @include flex(column, $justify: flex-start, $gap: 1em);
+  position: fixed;
   top: 0;
   left: 0;
   z-index: 5;
   height: 100%;
-  width: 100%;
+  width: 10rem;
   background-color: #000;
   color: var(--c-white);
   border-right: 0.0625rem solid #202124;

@@ -59,6 +59,7 @@
 .footer {
   padding: 2rem 1.5rem 6.5rem;
   color: var(--c-grey-medium);
+  background-color: var(--c-graphite);
   p {
     margin: 0.3rem 0;
   }

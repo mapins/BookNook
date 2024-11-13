@@ -41,22 +41,14 @@ const styles = computed(() => ({
 
 const BUTTON = 'button'
 
-const component = computed(() => {
+/* const component = computed(() => {
   if (props.to) return RouterLink
   return BUTTON
-})
+}) */
 </script>
 
 <template>
-  <component
-    :is="component"
-    class="main-button"
-    :style="styles"
-    :active="false"
-    :to="to"
-    :width="width"
-    v-bind="isAnchor"
-  >
+  <component class="main-button" :style="styles" :active="false" :to="to" :width="width">
     <slot />
   </component>
 </template>

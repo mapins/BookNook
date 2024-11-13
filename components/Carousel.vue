@@ -15,7 +15,7 @@ const books = ref([])
 onMounted(async () => {
   try {
     const fetchedBooks = await getBooks()
-    books.value = fetchedBooks
+    books.value = fetchedBooks || []
   } catch (error) {
     console.error('Error al obtener los libros:', error)
   }
@@ -23,33 +23,40 @@ onMounted(async () => {
 </script>
 
 <template>
-  <Swiper
-    class="slider-banner"
-    :slidesPerGroupSkip="0"
-    :slidesPerView="5"
-    :centeredSlides="false"
-    :grabCursor="true"
-    :keyboard="{ enabled: true }"
-    :breakpoints="{
-      '769': { slidesPerView: 5, slidesPerGroup: 5 },
-    }"
-    :scrollbar="true"
-    :navigation="{
-      nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev',
-    }"
-    :modules="modules"
-  >
-    <SwiperSlide v-for="(book, index) in books" :key="index">
-      <Card :coverpage="book.coverpage" :book_id="book.book_id" :title="book.title" />
-    </SwiperSlide>
+  <section class="carousel">
+    <Swiper
+      class="slider-banner"
+      :slidesPerGroupSkip="0"
+      :slidesPerView="5"
+      :centeredSlides="false"
+      :grabCursor="true"
+      :keyboard="{ enabled: true }"
+      :breakpoints="{
+        '769': { slidesPerView: 5, slidesPerGroup: 5 },
+      }"
+      :scrollbar="true"
+      :navigation="{
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      }"
+      :modules="modules"
+    >
+      <SwiperSlide v-for="(book, index) in books" :key="index">
+        <Card :coverpage="book.coverpage" :book_id="book.book_id" :title="book.title" />
+      </SwiperSlide>
 
-    <div class="swiper-button-next" aria-label="Next slide"></div>
-    <div class="swiper-button-prev" aria-label="Previous slide"></div>
-  </Swiper>
+      <div class="swiper-button-next" aria-label="Next slide"></div>
+      <div class="swiper-button-prev" aria-label="Previous slide"></div>
+    </Swiper>
+  </section>
 </template>
 
 <style scoped lang="scss">
+.carousel {
+  background-color: var(--c-graphite);
+  padding: 4rem 0 4rem 0;
+}
+
 .swiper-button-next,
 .swiper-button-prev {
   display: flex;
@@ -65,9 +72,7 @@ onMounted(async () => {
   &:hover {
     background: rgba(0, 0, 0, 0.5);
     color: var(--c-white);
-    transition:
-      opacity 0.25s ease,
-      background-color 0.25s ease;
+    transition: ease 0.0625rem;
   }
 }
 

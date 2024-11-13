@@ -3,7 +3,7 @@
   <section class="nav-link">
     <ul class="nav-link__ul">
       <li class="nav-link__li">
-        <NuxtLink href="#"><SvgHome class="nav-link__icon" /></NuxtLink>
+        <NuxtLink href="/"><SvgHome class="nav-link__icon" /></NuxtLink>
       </li>
       <li class="nav-link__li">
         <NuxtLink to="#"> <SvgBook class="nav-link__icon" /></NuxtLink>

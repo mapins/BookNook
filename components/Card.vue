@@ -22,7 +22,8 @@ defineProps<{
 .card {
   color: var(--c-white);
   &__img {
-    height: 15rem;
+    height: 18.3125rem;
+    width: 12.1875rem;
     object-fit: contain;
     box-shadow: 0rem 2rem 5rem rgba(0, 0, 0, 0.35);
   }
