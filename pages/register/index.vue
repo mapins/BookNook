@@ -27,13 +27,10 @@ const user = ref<UserData>({
 
 const registerUser = async () => {
   try {
-    // Enviar el objeto dentro de un objeto "input" como espera el backend
     const newUser = await userService.register(user.value)
     console.log('Usuario registrado:', newUser)
-    // Aquí puedes redirigir al usuario o mostrar un mensaje de éxito
   } catch (error) {
     console.error('Error en el registro', error)
-    // Aquí puedes mostrar un mensaje de error
   }
 }
 </script>
