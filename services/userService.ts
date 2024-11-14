@@ -4,7 +4,7 @@ const BASE_URL = 'https://booknookapi-production.up.railway.app/users'
 
 export const userService = {
   async register(userData: UserData) {
-    console.log(JSON.stringify(userData))
+    console.log('Data being sent:', userData)
     try {
       const response = await fetch(`${BASE_URL}/register`, {
         method: 'POST',
@@ -14,6 +14,8 @@ export const userService = {
         body: JSON.stringify(userData),
       })
       if (!response.ok) {
+        const errorMessage = await response.text()
+        console.error('Server response:', errorMessage)
         throw new Error('Error registering user')
       }
       return await response.json()
@@ -35,7 +37,8 @@ export const userService = {
       if (!response.ok) {
         throw new Error('Error logging in user')
       }
-      return await response.json()
+      const data = await response.json()
+      return data
     } catch (error) {
       console.error('Error logging in user:', error)
       throw error
