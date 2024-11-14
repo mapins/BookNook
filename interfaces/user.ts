@@ -7,6 +7,11 @@ export interface UserData {
 }
 
 export interface LoginData {
-  email: string
+  email_address: string
   password: string
+}
+
+export interface AuthState {
+  user: UserData | null
+  isAuthenticated: boolean
 }
