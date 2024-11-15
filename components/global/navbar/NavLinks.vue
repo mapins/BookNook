@@ -28,10 +28,10 @@
     margin: 0;
   }
   &__ul {
-    @include flex(column, $gap: 5em);
+    @include flex(column, $gap: 8em);
     @include responsive() {
       width: 100%;
-      @include flex(column, flex-start);
+      @include flex(column, flex-start, $gap: 8em);
       margin: 0;
     }
   }

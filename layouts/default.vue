@@ -26,7 +26,7 @@ import MainFooter from '@/components/global/footer/MainFooter.vue'
 }
 
 .navbar {
-  width: 10rem;
+  width: 6.5rem;
 }
 
 .main {

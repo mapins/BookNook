@@ -8,10 +8,11 @@ import MainButton from '@/components/ui/buttons/MainButton.vue'
       padding="0.2em 1em"
       color="var(--c-white)"
       font-size="0.9em"
-      width="6.5rem"
+      width="5rem"
       hover-color="var(--c-white)"
+      to="/login"
     >
-      Iniciar Sesión
+      Inicia Sesión
     </MainButton>
   </section>
 </template>

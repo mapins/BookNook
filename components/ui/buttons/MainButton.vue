@@ -1,5 +1,6 @@
-import { RouterLink } from '#vue-router'
 <script setup lang="ts">
+import { RouterLink } from '#vue-router'
+
 interface Props {
   bgColor?: string
   bgHover?: string
@@ -23,7 +24,7 @@ const props = defineProps<Props>()
 const styles = computed(() => ({
   '--padding': props.padding || '0 1rem',
   '--width': props.width || 'auto',
-  '--font-family': props.fontFamily || 'rubik-bold',
+  '--font-family': props.fontFamily || 'neulis-sans-bold',
   '--font-size': props.fontSize || '1rem',
   '--color': props.color || 'var(--c-white)',
   '--hover-color': props.hoverColor || 'var(--c-white)',
@@ -39,25 +40,45 @@ const styles = computed(() => ({
         : props.border,
 }))
 
+const ANCHOR = 'a'
 const BUTTON = 'button'
 
-/* const component = computed(() => {
+const component = computed(() => {
   if (props.to) return RouterLink
+  if (props.link) return ANCHOR
   return BUTTON
-}) */
+})
+
+const isAnchor = computed(() => {
+  if (component.value !== ANCHOR) return null
+  return {
+    target: props.target ?? '_blank',
+    rel: props.rel ?? 'noopener noreferrer',
+    ariaLabel: 'Alebat Education',
+  }
+})
 </script>
 
 <template>
-  <component class="main-button" :style="styles" :active="false" :to="to" :width="width">
+  <NuxtLink
+    :is="component"
+    class="main-button"
+    :style="styles"
+    :active="false"
+    :to="to"
+    :href="component === ANCHOR ? link : undefined"
+    :width="width"
+    v-bind="isAnchor"
+  >
     <slot />
-  </component>
+  </NuxtLink>
 </template>
 
 <style lang="scss" scoped>
 .main-button {
   width: var(--width);
   color: var(--color);
-  font-family: var(--font-family);
+  font-family: var(--f-font-bold);
   font-size: var(--font-size);
   background-color: var(--bg-color);
   border-radius: var(--border-radius);
@@ -66,7 +87,6 @@ const BUTTON = 'button'
   transition: var(--t-transition-button);
   height: var(--height);
   letter-spacing: 0.0893rem;
-  text-transform: uppercase;
   cursor: pointer;
   display: grid;
   place-items: center;
