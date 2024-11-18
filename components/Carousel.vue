@@ -6,20 +6,12 @@ import 'swiper/css/navigation'
 import { Keyboard, Scrollbar, Navigation } from 'swiper/modules'
 
 import Card from '@/components/Card.vue'
-import { getBooks } from '~/services/bookService'
 
 const modules = [Keyboard, Scrollbar, Navigation]
 
-const books = ref([])
-
-onMounted(async () => {
-  try {
-    const fetchedBooks = await getBooks()
-    books.value = fetchedBooks || []
-  } catch (error) {
-    console.error('Error al obtener los libros:', error)
-  }
-})
+const props = defineProps<{
+  books: object
+}>()
 </script>
 
 <template>
