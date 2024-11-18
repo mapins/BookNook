@@ -1,4 +1,6 @@
-<script setup></script>
+<script setup>
+const { handleElement } = useElementStore()
+</script>
 <template>
   <section class="nav-link">
     <ul class="nav-link__ul">
@@ -6,7 +8,7 @@
         <NuxtLink href="/"><SvgHome class="nav-link__icon" /></NuxtLink>
       </li>
       <li class="nav-link__li">
-        <NuxtLink to="#"> <SvgBook class="nav-link__icon" /></NuxtLink>
+        <NuxtLink to="/my-books"> <SvgBook class="nav-link__icon" /></NuxtLink>
       </li>
       <li class="nav-link__li">
         <NuxtLink to="#"> <SvgCompass class="nav-link__icon" /></NuxtLink>
@@ -15,7 +17,9 @@
         <NuxtLink to="#"> <SvgStar class="nav-link__icon" /></NuxtLink>
       </li>
       <li class="nav-link__li">
-        <NuxtLink to="#"> <SvgLens class="nav-link__icon" /> </NuxtLink>
+        <NuxtLink to="" @click="handleElement">
+          <SvgLens class="nav-link__icon" />
+        </NuxtLink>
       </li>
     </ul>
   </section>
