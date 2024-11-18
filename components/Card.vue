@@ -21,6 +21,11 @@ defineProps<{
 <style scoped lang="scss">
 .card {
   color: var(--c-white);
+  &__link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
   &__img {
     height: 18.3125rem;
     width: 12.1875rem;
