@@ -29,6 +29,7 @@ export const userService = {
     try {
       const response = await fetch(`${BASE_URL}/login`, {
         method: 'POST',
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -38,9 +39,35 @@ export const userService = {
         throw new Error('Error logging in user')
       }
       const data = await response.json()
+
+      const authStore = useAuthStore()
+      authStore.login(data.loggedUser)
       return data
     } catch (error) {
       console.error('Error logging in user:', error)
+      throw error
+    }
+  },
+
+  async logout() {
+    try {
+      const response = await fetch(`${BASE_URL}/logout`, {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      if (!response.ok) {
+        throw new Error('Error logging out user')
+      }
+      const data = await response.json()
+
+      const authStore = useAuthStore()
+      authStore.logout()
+      return data
+    } catch (error) {
+      console.error('Error logging out user:', error)
       throw error
     }
   },
