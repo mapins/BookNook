@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { userService } from '~/services/userService'
 defineProps<{
   title: string
   authors?: { name: string }[]
@@ -25,6 +26,9 @@ defineProps<{
       <p class="hero__subtitle">{{ subtitle }}</p>
       <NuxtLink v-if="buttonText" :to="buttonLink" class="hero__button">
         {{ buttonText }}
+      </NuxtLink>
+      <NuxtLink to="/logout" class="hero__button" @click="userService.logout()">
+        Salir
       </NuxtLink>
     </div>
   </section>
