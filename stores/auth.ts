@@ -1,23 +1,28 @@
 export const useAuthStore = defineStore('auth', () => {
+  const user = ref(null)
   const isLoggedIn = ref(false)
-  const authCookie = useCookie('auth_token')
+  const authToken = useCookie('authToken')
 
   onMounted(() => {
-    const savedStatus = localStorage.getItem('isLoggedIn')
-    isLoggedIn.value = savedStatus === 'true'
+    if (authToken.value) {
+      isLoggedIn.value = true
+    } else {
+      isLoggedIn.value = false
+    }
   })
 
-  function login(token: string) {
+  function login(userData: any) {
+    user.value = userData
     isLoggedIn.value = true
-    authCookie.value = token
   }
 
   function logout() {
+    user.value = null
     isLoggedIn.value = false
-    authCookie.value = null
   }
 
   return {
+    user,
     isLoggedIn,
     login,
     logout,
