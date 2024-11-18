@@ -8,8 +8,6 @@ const props = defineProps<{
   categories?: string
   coverpage?: string
 }>()
-
-console.log(props.authors)
 </script>
 <template>
   <section class="book-info">
