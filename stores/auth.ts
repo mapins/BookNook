@@ -1,7 +1,10 @@
+import type { UserData } from '~/interfaces/user'
+
 export const useAuthStore = defineStore('auth', () => {
-  const user = ref(null)
+  const user = ref()
   const isLoggedIn = ref(false)
   const authToken = useCookie('authToken')
+  const userId = ref()
 
   onMounted(() => {
     if (authToken.value) {
@@ -11,9 +14,10 @@ export const useAuthStore = defineStore('auth', () => {
     }
   })
 
-  function login(userData: any) {
+  function login(userData: UserData) {
     user.value = userData
     isLoggedIn.value = true
+    userId.value = user.value?.user_id || null
   }
 
   function logout() {
@@ -23,6 +27,7 @@ export const useAuthStore = defineStore('auth', () => {
 
   return {
     user,
+    userId,
     isLoggedIn,
     login,
     logout,
