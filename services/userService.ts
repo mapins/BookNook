@@ -4,7 +4,6 @@ const BASE_URL = 'https://booknookapi-production.up.railway.app/users'
 
 export const userService = {
   async register(userData: UserData) {
-    console.log('Data being sent:', userData)
     try {
       const response = await fetch(`${BASE_URL}/register`, {
         method: 'POST',
