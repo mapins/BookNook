@@ -4,11 +4,13 @@ import { getBookById } from '~/services/bookService'
 import { ref, onMounted } from 'vue'
 import BookInfo from '~/components/BookInfo.vue'
 import type { Book } from '~/interfaces'
+import { useAuthStore } from '@/stores/auth'
+
+const { isLoggedIn } = useAuthStore()
 
 const route = useRoute()
 const bookId = Number(route.params.id)
 
-// Initialize book with type Book or null
 const book = ref<Book>()
 
 onMounted(async () => {
@@ -38,6 +40,7 @@ onMounted(async () => {
       :page-count="book.pagecount"
       :subtitle="book.description"
     />
+    <ReadingStatusSelect v-if="isLoggedIn" />
   </section>
 </template>
 

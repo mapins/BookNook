@@ -12,7 +12,6 @@ const loginUser = async () => {
   try {
     const existingUser = await userService.login(user.value)
     await navigateTo('/')
-    console.log('Usuario logeado:', existingUser)
   } catch (error) {
     console.error('Error en el logeo', error)
   }
