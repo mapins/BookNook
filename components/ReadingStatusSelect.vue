@@ -10,7 +10,7 @@ const route = useRoute()
 const bookReadingStatus = ref<ReadingStatus>({
   book_id: 0,
   user_id: userId,
-  status: 'reading',
+  status: null,
 })
 
 onMounted(() => {
