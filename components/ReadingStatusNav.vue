@@ -1,52 +1,47 @@
-<script setup>
+<script lang="ts" setup>
 import { ref } from 'vue'
+import type { BooksStatusByUser } from '~/interfaces/readingStatus'
+import { readingStatusService } from '~/services/readingStatusService'
+import { useAuthStore } from '@/stores/auth'
 
-const options = ref([
-  {
-    id: 1,
-    name: 'LEÍDOS',
-    title: 'Información 1',
-    description: 'Descripción de la opción 1.',
-  },
-  {
-    id: 2,
-    name: 'EN PROGRESO',
-    title: 'Información 2',
-    description: 'Descripción de la opción 2.',
-  },
-  {
-    id: 3,
-    name: 'POR LEER',
-    title: 'Información 3',
-    description: 'Descripción de la opción 3.',
-  },
-])
+const { userId } = useAuthStore()
 
-const selectedOption = ref(options.value[0].id)
-const info = ref(options.value[0])
-const selectOption = (id) => {
-  selectedOption.value = id
-  info.value = options.value.find((option) => option.id === id) || null
+const books = ref([])
+const selectedStatus = ref<'read' | 'reading' | 'desired'>('read')
+
+const getBooksByStatus = async (status: 'read' | 'reading' | 'desired') => {
+  selectedStatus.value = status
+  const statusData: BooksStatusByUser = {
+    user_id: userId,
+    status,
+  }
+  try {
+    const fetchedBooks = await readingStatusService.getBooksByStatus(statusData)
+    books.value = fetchedBooks || []
+  } catch (error) {
+    console.error('Error getting status books:', error)
+  }
 }
+
+getBooksByStatus(selectedStatus.value)
 </script>
 
 <template>
   <div class="info-navigator">
     <div class="buttons">
       <button
-        v-for="option in options"
-        :key="option.id"
-        :class="{ active: selectedOption === option.id }"
-        @click="selectOption(option.id)"
+        v-for="(status, index) in ['read', 'reading', 'desired']"
+        :key="index"
+        :class="{ active: selectedStatus === status }"
+        @click="getBooksByStatus(status as 'read' | 'reading' | 'desired')"
       >
-        {{ option.name }}
+        {{
+          status === 'read' ? 'LEÍDOS' : status === 'reading' ? 'EN PROGRESO' : 'POR LEER'
+        }}
       </button>
     </div>
 
-    <div v-if="info" class="info-box">
-      <h2>{{ info.title }}</h2>
-      <p>{{ info.description }}</p>
-    </div>
+    <Listing :books="books" />
   </div>
 </template>
 
@@ -55,6 +50,7 @@ const selectOption = (id) => {
   margin: 0 auto;
   text-align: center;
   background-color: var(--c-graphite);
+  color: var(--c-white);
 }
 
 .buttons {
@@ -81,35 +77,7 @@ button:hover {
 }
 
 button.active {
-  position: relative;
-  text-decoration: none;
   color: var(--c-white);
-  border-bottom: 0.2rem solid white;
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: -0.125rem;
-    left: 0;
-    width: 0;
-    height: 0.125rem;
-    background-color: var(--c-white);
-    transition: width 0.3s ease;
-  }
-}
-
-.info-box {
-  border: 0.0625rem solid #ddd;
-  padding: 1.25rem;
-  border-radius: 0.3125rem;
-  background-color: #f9f9f9;
-  margin-top: 0.625rem;
-}
-
-.info-box h2 {
-  margin: 0 0 0.625rem;
-}
-
-.info-box p {
-  margin: 0;
+  border-bottom: 0.2rem solid var(--c-white);
 }
 </style>
