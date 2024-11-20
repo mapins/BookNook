@@ -1,8 +1,9 @@
 <script setup>
+import Listing from '~/components/Listing.vue'
 import { useFilterBooks } from '~/composables/useFilterBooks'
 import { getBooks } from '~/services/bookService'
 import { useElementStore } from '@/stores/search'
-const { handleElement, closeElement, isShowing } = useElementStore()
+const { handleElement } = useElementStore()
 const { filteredBooks, searchBook } = useFilterBooks()
 
 const books = ref([])
@@ -21,20 +22,13 @@ onMounted(async () => {
   }
 })
 watch(searchTerm, (newTerm) => {
-  console.log(books.value)
   searchBook(newTerm, books.value)
-  console.log(filteredBooks.value)
 })
-
-const handleOutsideClick = () => {
-  alert('hola cerda')
-}
 </script>
 <template>
   <form @submit.prevent>
     <div class="field">
       <input
-        v-outside-click="handleOutsideClick"
         v-model="searchTerm"
         id="search"
         name="search"
@@ -62,13 +56,7 @@ const handleOutsideClick = () => {
       </button>
     </div>
 
-    <div class="listing">
-      <ul>
-        <li v-for="(book, index) in filteredBooks" :key="index">
-          <Card :coverpage="book.coverpage" :book_id="book.book_id" :title="book.title" />
-        </li>
-      </ul>
-    </div>
+    <Listing :books="filteredBooks" />
   </form>
 </template>
 
@@ -100,20 +88,5 @@ form {
 .field {
   display: flex;
   background-color: var(--c-graphite);
-}
-
-.listing ul {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  overflow: scroll;
-  height: 80vh;
-  padding: 1rem;
-}
-
-.listing li {
-  flex: 0 1 calc(25% - 1rem); /* Cada libro ocupa un 25% del espacio, ajustable según lo que necesites */
-  list-style: none;
-  display: flex;
 }
 </style>
