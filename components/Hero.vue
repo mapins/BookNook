@@ -27,7 +27,7 @@ defineProps<{
       <NuxtLink v-if="buttonText" :to="buttonLink" class="hero__button">
         {{ buttonText }}
       </NuxtLink>
-      <NuxtLink to="/logout" class="hero__button" @click="userService.logout()">
+      <NuxtLink to="/" class="hero__button" @click="userService.logout()">
         Salir
       </NuxtLink>
     </div>
