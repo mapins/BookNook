@@ -12,7 +12,6 @@ onMounted(async () => {
   try {
     const fetchedBooks = await getBooks()
     books.value = fetchedBooks || []
-    console.log(books.value)
   } catch (error) {
     console.error('Error al obtener los libros:', error)
   }
