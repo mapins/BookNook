@@ -3,7 +3,6 @@ import type { UserData } from '~/interfaces/user'
 export const useAuthStore = defineStore('auth', () => {
   const user = ref<UserData | null>(null)
   const isLoggedIn = ref(false)
-  const authToken = useCookie('authToken')
   const userId = ref<number | null>(null)
 
   function login(userData: UserData) {
@@ -23,17 +22,17 @@ export const useAuthStore = defineStore('auth', () => {
   }
 
   onMounted(() => {
-    const storedUserId = localStorage.getItem('userId')
-    const storedIsLoggedIn = localStorage.getItem('isLoggedIn')
-    console.log(storedUserId)
+    if (process.client) {
+      const storedUserId = localStorage.getItem('userId')
+      const storedIsLoggedIn = localStorage.getItem('isLoggedIn')
 
-    if (authToken.value && storedIsLoggedIn === 'true' && storedUserId) {
-      isLoggedIn.value = true
-      userId.value = parseInt(storedUserId)
-      console.log(userId.value, isLoggedIn.value)
-    } else {
-      isLoggedIn.value = false
-      userId.value = null
+      if (storedIsLoggedIn === 'true' && storedUserId) {
+        isLoggedIn.value = true
+        userId.value = parseInt(storedUserId)
+      } else {
+        isLoggedIn.value = false
+        userId.value = null
+      }
     }
   })
 
