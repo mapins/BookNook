@@ -2,7 +2,7 @@
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { readingStatusService } from '../services/readingStatusService'
-import type { ReadingStatus } from '~/interfaces/readingStatus'
+import type { currentUserBook, ReadingStatus } from '~/interfaces/readingStatus'
 import { useAuthStore } from '@/stores/auth'
 const { userId } = useAuthStore()
 const route = useRoute()
@@ -13,12 +13,34 @@ const bookReadingStatus = ref<ReadingStatus>({
   status: null,
 })
 
-onMounted(() => {
+const currentBook = ref<currentUserBook>({
+  book_id: 0,
+  user_id: userId,
+})
+
+const isLoading = ref(true)
+
+onMounted(async () => {
   const bookId = Number(route.params.id)
   if (!isNaN(bookId)) {
     bookReadingStatus.value.book_id = bookId
-  } else {
-    console.error('ID del libro no válido:', route.params.id)
+    currentBook.value.book_id = bookId
+
+    if (bookReadingStatus.value.status === null) {
+      try {
+        const status = await readingStatusService.getBookByStatus(currentBook.value)
+        if (status && status.status !== undefined) {
+          bookReadingStatus.value.status = status.status
+        } else {
+          bookReadingStatus.value.status = null
+        }
+      } catch (error) {
+        console.error('Error fetching reading status:', error)
+      }
+      isLoading.value = false
+    } else {
+      console.error('ID del libro no válido:', route.params.id)
+    }
   }
 })
 
@@ -32,8 +54,10 @@ const saveStatus = async (readingStatus: ReadingStatus) => {
 
 watch(
   () => bookReadingStatus.value.status,
-  () => {
-    saveStatus(bookReadingStatus.value)
+  (newStatus, oldStatus) => {
+    if (!isLoading.value && newStatus !== oldStatus) {
+      saveStatus(bookReadingStatus.value)
+    }
   },
 )
 </script>
