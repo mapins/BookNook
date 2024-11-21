@@ -17,6 +17,7 @@ defineProps<{
 .listing ul {
   display: flex;
   flex-direction: row;
+  justify-content: center;
   flex-wrap: wrap;
   overflow: scroll;
   height: 80vh;
