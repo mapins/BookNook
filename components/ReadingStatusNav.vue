@@ -2,9 +2,8 @@
 import { ref } from 'vue'
 import type { BooksStatusByUser } from '~/interfaces/readingStatus'
 import { readingStatusService } from '~/services/readingStatusService'
-import { useAuthStore } from '@/stores/auth'
 
-const { userId } = useAuthStore()
+const authStore = useAuthStore()
 
 const books = ref([])
 const selectedStatus = ref<'read' | 'reading' | 'desired'>('read')
@@ -12,7 +11,7 @@ const selectedStatus = ref<'read' | 'reading' | 'desired'>('read')
 const getBooksByStatus = async (status: 'read' | 'reading' | 'desired') => {
   selectedStatus.value = status
   const statusData: BooksStatusByUser = {
-    user_id: userId,
+    user_id: authStore.userId,
     status,
   }
   try {
@@ -23,7 +22,11 @@ const getBooksByStatus = async (status: 'read' | 'reading' | 'desired') => {
   }
 }
 
-getBooksByStatus(selectedStatus.value)
+onMounted(() => {
+  if (authStore.userId) {
+    getBooksByStatus(selectedStatus.value)
+  }
+})
 </script>
 
 <template>
