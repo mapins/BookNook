@@ -1,3 +1,5 @@
+# ANTEPROYECTO
+
 ### **1. Título del Proyecto**
 
 Desarrollo de la aplicación web "BookNook" para la gestión de libros y seguimiento de lectura.
@@ -25,7 +27,7 @@ El proyecto se desarrollará utilizando las siguientes tecnologías:
 
 1. **Fase 1: Planificación** – Definir la arquitectura del proyecto, las funcionalidades clave y la estructura de la base de datos.
 2. **Fase 2: Desarrollo Backend** – Crear la API que gestione el almacenamiento de los libros, los usuarios, las valoraciones y los estados.
-3. **Fase 3: Desarrollo Frontend** – Diseñar la UI y conectar con la API.
+3. **Fase 3: Desarrollo Frontend** – Diseñar la UI y conexión con la API.
 4. **Fase 4: Integración y pruebas** – Realizar pruebas para verificar que las funcionalidades están correctamente implementadas y corregir posibles errores.
 5. **Fase 5: Implementación y Lanzamiento** – Desplegar la aplicación en un entorno de producción y realizar una evaluación final.
 
@@ -57,6 +59,7 @@ El proyecto se desarrollará utilizando las siguientes tecnologías:
 - **Diseño**:
 - **Hosting y servicios**:
 - **Total estimado**:
+
 bun run preview
 ```
 
