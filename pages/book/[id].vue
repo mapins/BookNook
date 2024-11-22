@@ -6,7 +6,7 @@ import BookInfo from '~/components/BookInfo.vue'
 import type { Book } from '~/interfaces'
 import { useAuthStore } from '@/stores/auth'
 
-const { isLoggedIn } = useAuthStore()
+const authStore = useAuthStore()
 
 const route = useRoute()
 const bookId = Number(route.params.id)
@@ -14,11 +14,13 @@ const bookId = Number(route.params.id)
 const book = ref<Book>()
 
 onMounted(async () => {
-  try {
-    const fetchedBook = await getBookById(bookId)
-    book.value = fetchedBook
-  } catch (error) {
-    console.error('Error al obtener los libros:', error)
+  if (authStore.isLoggedIn) {
+    try {
+      const fetchedBook = await getBookById(bookId)
+      book.value = fetchedBook
+    } catch (error) {
+      console.error('Error al obtener los libros:', error)
+    }
   }
 })
 </script>
@@ -40,7 +42,7 @@ onMounted(async () => {
       :page-count="book.pagecount"
       :subtitle="book.description"
     />
-    <ReadingStatusSelect v-if="isLoggedIn" />
+    <ReadingStatusSelect v-if="authStore.isLoggedIn" />
   </section>
 </template>
 
