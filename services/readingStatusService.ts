@@ -8,6 +8,7 @@ const BASE_URL = 'https://booknookapi-production.up.railway.app/reading-status'
 
 export const readingStatusService = {
   async saveStatus(readingStatus: ReadingStatus) {
+    console.log('ESTA GUARDANDO')
     console.log(JSON.stringify(readingStatus))
     try {
       const response = await fetch(`${BASE_URL}`, {
@@ -28,14 +29,8 @@ export const readingStatusService = {
   },
 
   async getBooksByStatus(booksStatusByUser: BooksStatusByUser) {
-    const authStore = useAuthStore()
-
-    const userId = authStore.userId
-    if (!userId) {
-      throw new Error('Usuario no autenticado')
-    }
+    console.log(booksStatusByUser)
     try {
-      console.log(booksStatusByUser)
       const response = await fetch(
         `${BASE_URL}/user/${booksStatusByUser.user_id}/status/${booksStatusByUser.status}`,
         {
@@ -64,7 +59,6 @@ export const readingStatusService = {
       throw new Error('Usuario no autenticado')
     }
     try {
-      console.log(currentUserBook)
       const response = await fetch(
         `${BASE_URL}/user/${currentUserBook.user_id}/book/${currentUserBook.book_id}/status`,
         {
