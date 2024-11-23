@@ -6,9 +6,10 @@ import { readingStatusService } from '~/services/readingStatusService'
 const authStore = useAuthStore()
 
 const books = ref([])
-const selectedStatus = ref<'read' | 'reading' | 'desired'>('read')
+const selectedStatus = ref<BooksStatusByUser['status']>('read')
 
-const getBooksByStatus = async (status: 'read' | 'reading' | 'desired') => {
+const getBooksByStatus = async (status: BooksStatusByUser['status']) => {
+  books.value = []
   selectedStatus.value = status
   const statusData: BooksStatusByUser = {
     user_id: authStore.userId,

@@ -2,7 +2,7 @@
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { readingStatusService } from '../services/readingStatusService'
-import type { currentUserBook, ReadingStatus } from '~/interfaces/readingStatus'
+import type { ReadingStatus } from '~/interfaces/readingStatus'
 import { useAuthStore } from '@/stores/auth'
 const { userId } = useAuthStore()
 const route = useRoute()
@@ -13,50 +13,40 @@ const bookReadingStatus = ref<ReadingStatus>({
   status: null,
 })
 
-const currentBook = ref<currentUserBook>({
-  book_id: 0,
-  user_id: userId,
-})
-
-const isLoading = ref(true)
+const bookId = Number(route.params.id)
+bookReadingStatus.value.book_id = bookId
 
 onMounted(async () => {
-  const bookId = Number(route.params.id)
   if (!isNaN(bookId)) {
-    bookReadingStatus.value.book_id = bookId
-    currentBook.value.book_id = bookId
-
-    if (bookReadingStatus.value.status === null) {
-      try {
-        const status = await readingStatusService.getBookByStatus(currentBook.value)
-        if (status && status.status !== undefined) {
-          bookReadingStatus.value.status = status.status
-        } else {
-          bookReadingStatus.value.status = null
-        }
-      } catch (error) {
-        console.error('Error fetching reading status:', error)
+    try {
+      const status = await readingStatusService.getBookByStatus({
+        book_id: bookId,
+        user_id: userId,
+      })
+      if (status?.status) {
+        bookReadingStatus.value.status = status.status
       }
-      isLoading.value = false
-    } else {
-      console.error('ID del libro no válido:', route.params.id)
+    } catch (error) {
+      console.error('Error fetching reading status:', error)
     }
   }
 })
 
-const saveStatus = async (readingStatus: ReadingStatus) => {
-  try {
-    await readingStatusService.saveStatus(readingStatus)
-  } catch (error) {
-    console.error('Error saving status:', error)
+const saveStatus = async () => {
+  if (bookReadingStatus.value.status !== null) {
+    try {
+      await readingStatusService.saveStatus(bookReadingStatus.value)
+    } catch (error) {
+      console.error('Error saving status:', error)
+    }
   }
 }
 
 watch(
   () => bookReadingStatus.value.status,
-  (newStatus, oldStatus) => {
-    if (!isLoading.value && newStatus !== oldStatus) {
-      saveStatus(bookReadingStatus.value)
+  async (newStatus, oldStatus) => {
+    if (oldStatus !== null && newStatus !== 'not_found') {
+      await saveStatus()
     }
   },
 )
