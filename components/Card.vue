@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 defineProps<{
-  book_id: String
-  coverpage: String
-  title: String
+  book_id: number
+  coverpage: string
+  title: string
 }>()
 </script>
 
@@ -11,6 +11,7 @@ defineProps<{
     <NuxtLink :to="{ path: `/book/${book_id}` }" class="card__link">
       <NuxtImg :src="coverpage" class="card__img" />
       <h2 class="card__title">{{ title }}</h2>
+      <StarRating :bookId="book_id" />
 
       <div class="card__rating">
         <div class="card__stars"></div>

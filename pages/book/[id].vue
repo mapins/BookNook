@@ -43,6 +43,7 @@ onMounted(async () => {
       :subtitle="book.description"
     />
     <ReadingStatusSelect v-if="authStore.isLoggedIn" />
+    <StarRating />
   </section>
 </template>
 
