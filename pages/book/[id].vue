@@ -14,13 +14,11 @@ const bookId = Number(route.params.id)
 const book = ref<Book>()
 
 onMounted(async () => {
-  if (authStore.isLoggedIn) {
-    try {
-      const fetchedBook = await getBookById(bookId)
-      book.value = fetchedBook
-    } catch (error) {
-      console.error('Error al obtener los libros:', error)
-    }
+  try {
+    const fetchedBook = await getBookById(bookId)
+    book.value = fetchedBook
+  } catch (error) {
+    console.error('Error al obtener los libros:', error)
   }
 })
 </script>
