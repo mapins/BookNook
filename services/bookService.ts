@@ -1,10 +1,21 @@
+import { useCacheStore } from '~/stores/cache'
 const BASE_URL = 'https://booknookapi-production.up.railway.app/books'
 
 export const getBooks = async () => {
+  const cacheStore = useCacheStore()
+
+  const cachedData = cacheStore.getCache('books')
+  if (cachedData) {
+    console.log('Datos obtenidos del cache')
+    return cachedData
+  }
+
   try {
     const response = await fetch(`${BASE_URL}`)
     if (!response.ok) throw new Error('Error al obtener los libros')
     const data = await response.json()
+
+    cacheStore.setCache('books', data)
     return data
   } catch (error) {
     console.error('Error en la solicitud a la API:', error)
@@ -13,10 +24,19 @@ export const getBooks = async () => {
 }
 
 export const getBookById = async (bookId: number) => {
+  console.log('SEMETI')
+  const cacheStore = useCacheStore()
+
+  const cachedData = cacheStore.getCache(`book-${bookId}`)
+  if (cachedData) {
+    console.log('Datos obtenidos del cache')
+    return cachedData
+  }
   try {
     const response = await fetch(`${BASE_URL}/${bookId}`)
     if (!response.ok) throw new Error('Error al obtener el libro')
     const data = await response.json()
+    cacheStore.setCache(`book-${bookId}`, data)
     return data
   } catch (error) {
     console.error(`Error al obtener el libro con ID ${bookId}:`, error)
