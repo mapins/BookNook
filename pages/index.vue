@@ -18,7 +18,7 @@ onMounted(async () => {
 })
 </script>
 <template>
-  <div class="home" v-if="!isShowing">
+  <div class="home">
     <Hero
       title="Descubre, los mejores libros"
       subtitle="Todo tipos de libros a tu alcance, averigua sobre ellos"
@@ -26,10 +26,5 @@ onMounted(async () => {
       button-link="/register"
     />
     <Carousel :books />
-  </div>
-  <div v-else class="listing">
-    <transition name="slidedown">
-      <SearchForm />
-    </transition>
   </div>
 </template>
