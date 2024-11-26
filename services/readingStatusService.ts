@@ -9,8 +9,6 @@ const BASE_URL = 'https://booknookapi-production.up.railway.app/reading-status'
 
 export const readingStatusService = {
   async saveStatus(readingStatus: ReadingStatus) {
-    console.log('ESTA GUARDANDO')
-    console.log(JSON.stringify(readingStatus))
     try {
       const response = await fetch(`${BASE_URL}`, {
         method: 'POST',
@@ -27,13 +25,41 @@ export const readingStatusService = {
 
       const cacheStore = useCacheStore()
 
-      const cacheKey = `book-${readingStatus.user_id}-user-${readingStatus.user_id}-status-${readingStatus.status}`
+      const cacheKey = `user-${readingStatus.user_id}-book-${readingStatus.book_id}-readingStatus`
       cacheStore.clearCache(cacheKey)
       cacheStore.setCache(cacheKey, savedData)
 
       return savedData
     } catch (error) {
       console.error('Error saving reading status:', error)
+      throw error
+    }
+  },
+
+  async deleteStatus(currentUserBook: currentUserBook) {
+    try {
+      const response = await fetch(
+        `${BASE_URL}/${currentUserBook.user_id}/${currentUserBook.book_id}`,
+        {
+          method: 'DELETE',
+        },
+      )
+
+      if (!response.ok) {
+        throw new Error('Error deleting status')
+      }
+
+      const data = await response.json()
+
+      const cacheStore = useCacheStore()
+
+      const cacheKey = `user-${currentUserBook.user_id}-book-${currentUserBook.book_id}-readingStatus`
+      cacheStore.clearCache(cacheKey)
+      cacheStore.setCache(cacheKey, data)
+
+      return data
+    } catch (error) {
+      console.error('Error deleting status:', error)
       throw error
     }
   },
@@ -82,7 +108,7 @@ export const readingStatusService = {
       throw new Error('Usuario no autenticado')
     }
     const cacheStore = useCacheStore()
-    const cacheKey = `book-${currentUserBook.user_id}-status-${currentUserBook.book_id}`
+    const cacheKey = `user-${currentUserBook.user_id}-book-${currentUserBook.book_id}-readingStatus`
 
     const cachedData = cacheStore.getCache(cacheKey)
 

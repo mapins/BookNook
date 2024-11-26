@@ -64,6 +64,8 @@ export const userService = {
 
       const authStore = useAuthStore()
       authStore.logout()
+      const cacheStore = useCacheStore()
+      cacheStore.removeCache()
       return data
     } catch (error) {
       console.error('Error logging out user:', error)
