@@ -21,6 +21,12 @@ onMounted(async () => {
     console.error('Error al obtener los libros:', error)
   }
 })
+
+const handleActionIfNotLoggedIn = () => {
+  if (!authStore.isLoggedIn) {
+    navigateTo('/login')
+  }
+}
 </script>
 
 <template>
@@ -40,8 +46,8 @@ onMounted(async () => {
       :page-count="book.pagecount"
       :subtitle="book.description"
     />
-    <ReadingStatusSelect v-if="authStore.isLoggedIn" />
-    <StarRating />
+    <ReadingStatusSelect @click="handleActionIfNotLoggedIn" />
+    <StarRating @click="handleActionIfNotLoggedIn" />
   </section>
 </template>
 
