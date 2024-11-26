@@ -17,7 +17,7 @@ const { handleElement } = useElementStore()
         <NuxtLink to="#"> <SvgStar class="nav-link__icon" /></NuxtLink>
       </li>
       <li class="nav-link__li">
-        <NuxtLink to="" @click="handleElement">
+        <NuxtLink to="/search" @click="handleElement">
           <SvgLens class="nav-link__icon" />
         </NuxtLink>
       </li>

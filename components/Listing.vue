@@ -14,13 +14,17 @@ defineProps<{
 </template>
 
 <style lang="scss" scoped>
+.listing {
+  background-color: var(--c-graphite);
+}
+
 .listing ul {
   display: flex;
   flex-direction: row;
   justify-content: center;
   flex-wrap: wrap;
   overflow: scroll;
-  height: 80vh;
+  height: 92vh;
   padding: 1rem;
 }
 
