@@ -17,7 +17,12 @@ const bookRating = ref<Rating>({
 })
 
 const setRating = async (newRating: number) => {
-  bookRating.value.rating = bookRating.value.rating === newRating ? 0 : newRating
+  if (bookRating.value.rating === newRating) {
+    console.log('NOPUDE')
+    deleteRating()
+    return
+  }
+  bookRating.value.rating = newRating
   saveRating(bookRating.value)
 }
 
@@ -27,6 +32,20 @@ const saveRating = async (bookRating: Rating) => {
     bookRating.rating = currentRating.rating
   } catch (error) {
     console.error('Error saving rating:', error)
+  }
+}
+
+const deleteRating = async () => {
+  try {
+    const result = await ratingsService.deleteRating({
+      user_id: userId,
+      book_id: bookRating.value.book_id,
+    })
+
+    console.log('Book rating deleted: ', result)
+    bookRating.value.rating = 0
+  } catch (error) {
+    console.error('Error deleting rating:', error)
   }
 }
 
