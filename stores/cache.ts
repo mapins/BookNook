@@ -27,5 +27,10 @@ export const useCacheStore = defineStore('cache', {
       delete this.cache[key]
       localStorage.removeItem(key)
     },
+
+    removeCache() {
+      this.cache = {}
+      localStorage.clear()
+    },
   },
 })
