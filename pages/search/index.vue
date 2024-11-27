@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import SearchForm from '~/components/global/search/SearchForm.vue'
+import BookSearch from '~/components/global/search/BookSearch.vue'
 </script>
 <template>
   <transition name="slidedown">
-    <SearchForm />
+    <BookSearch />
   </transition>
 </template>
