@@ -1,23 +1,10 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import type { UserData } from '~/interfaces/user'
-import { userService } from '~/services/userService'
-import { useAuthStore } from '~/stores/auth'
+import { useUser } from '~/composables/useUser'
+import type { UpdateUserData } from '~/interfaces/user'
 
-const authStore = useAuthStore()
+const { fetchUser, placeholders, updateUser } = useUser()
 
-const currentUser = ref<UserData | null>(null)
-
-onMounted(async () => {
-  try {
-    const user = await userService.getUserById(authStore.userId)
-    currentUser.value = user
-  } catch (error) {
-    console.error('Error al obtener el usuario:', error)
-  }
-})
-
-const formData = ref<UserData>({
+const formData = ref<UpdateUserData>({
   first_name: '',
   last_name: '',
   user_handle: '',
@@ -25,38 +12,32 @@ const formData = ref<UserData>({
   password: '',
 })
 
+onMounted(fetchUser)
+
 const handleSubmit = async () => {
-  try {
-    const userId = authStore.userId
+  const updatedFields: { [key: string]: string } = {}
 
-    if (formData.value.first_name) {
-      await userService.updateUser(userId, { first_name: formData.value.first_name })
-      console.log('Nombre actualizado:', formData.value.first_name)
+  for (const key in formData.value) {
+    // Lo que hago es que si me han escrito algo y es distinto al placeholder y no esta vacío es decir lo han modificado, lo mete el updatedFields
+    if (
+      formData.value[key] !== placeholders.value[key] &&
+      formData.value[key].trim() !== ''
+    ) {
+      updatedFields[key] = formData.value[key]
+    }
+  }
+
+  if (Object.keys(updatedFields).length > 0) {
+    await updateUser(updatedFields) // Paso solo los campos que han cambiado
+    formData.value = {
+      first_name: '',
+      last_name: '',
+      user_handle: '',
+      email_address: '',
+      password: '',
     }
 
-    if (formData.value.last_name) {
-      await userService.updateUser(userId, { last_name: formData.value.last_name })
-      console.log('Apellido actualizado:', formData.value.last_name)
-    }
-
-    if (formData.value.user_handle) {
-      await userService.updateUser(userId, { user_handle: formData.value.user_handle })
-      console.log('Nombre de usuario actualizado:', formData.value.user_handle)
-    }
-
-    if (formData.value.email_address) {
-      await userService.updateUser(userId, {
-        email_address: formData.value.email_address,
-      })
-      console.log('Correo electrónico actualizado:', formData.value.email_address)
-    }
-
-    if (formData.value.password) {
-      await userService.updateUser(userId, { password: formData.value.password })
-      console.log('Contraseña actualizada.')
-    }
-  } catch (error) {
-    console.error('Error al enviar el formulario:', error)
+    console.log('Perfil actualizado exitosamente.')
   }
 }
 </script>
@@ -71,7 +52,7 @@ const handleSubmit = async () => {
           type="text"
           id="firstName"
           v-model="formData.first_name"
-          :placeholder="currentUser?.first_name"
+          :placeholder="placeholders.first_name"
         />
       </div>
 
@@ -81,18 +62,17 @@ const handleSubmit = async () => {
           type="text"
           id="lastName"
           v-model="formData.last_name"
-          :placeholder="currentUser?.last_name"
+          :placeholder="placeholders.last_name"
         />
       </div>
 
       <div class="form-group">
-        <label for="username">Nombre de usuario:</label>
-
+        <label for="username">Nombre de usuario</label>
         <input
           type="text"
           id="username"
           v-model="formData.user_handle"
-          :placeholder="currentUser?.user_handle"
+          :placeholder="placeholders.user_handle"
         />
       </div>
 
@@ -102,7 +82,7 @@ const handleSubmit = async () => {
           type="email"
           id="email"
           v-model="formData.email_address"
-          :placeholder="currentUser?.email_address"
+          :placeholder="placeholders.email_address"
         />
       </div>
 
@@ -140,7 +120,7 @@ const handleSubmit = async () => {
     input {
       width: 100%;
       padding: 0.8rem;
-      border: 0.0625rem solid #ccc;
+      border: 0.0625rem solid var(--c-graphite);
       border-radius: 0.25rem;
     }
   }
@@ -148,7 +128,7 @@ const handleSubmit = async () => {
     display: block;
     width: 100%;
     padding: 1rem;
-    background-color: #007bff;
+    background-color: var(--c-primary);
     color: white;
     text-align: center;
     border: none;
@@ -156,7 +136,7 @@ const handleSubmit = async () => {
     cursor: pointer;
     font-size: 1.2rem;
     &:hover {
-      background-color: #0056b3;
+      background-color: #98002b;
     }
   }
 }
