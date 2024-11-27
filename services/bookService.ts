@@ -44,7 +44,8 @@ export const getBookById = async (bookId: number) => {
   }
 }
 
-export const getBookByCategory = async (categoryId: number) => {
+export const getBooksByCategories = async (categoryIds: number[]) => {
+  console.log(categoryIds)
   /* console.log('SEMETI')
   const cacheStore = useCacheStore()
 
@@ -54,13 +55,16 @@ export const getBookByCategory = async (categoryId: number) => {
     return cachedData
   } */
   try {
-    const response = await fetch(`${BASE_URL}/category/${categoryId}`)
+    const response = await fetch(
+      `${BASE_URL}/categories?category_ids=${categoryIds.join(',')}`,
+    )
+
     if (!response.ok) throw new Error('Error al obtener el libro')
     const data = await response.json()
     /*     cacheStore.setCache(`book-${bookId}`, data)
      */ return data
   } catch (error) {
-    console.error(`Error al obtener los libros con categoria ${categoryId}:`, error)
+    console.error(`Error al obtener los libros con categoria ${categoryIds}:`, error)
     throw error
   }
 }
