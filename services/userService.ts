@@ -86,7 +86,8 @@ export const userService = {
     }
   },
 
-  async updateUser(userId: number | null, updatedData: Partial<UserData>) {
+  async updateUser(userId: number | null, updatedData: { [key: string]: string }) {
+    console.log(updatedData)
     try {
       const response = await fetch(`${BASE_URL}/${userId}`, {
         method: 'PUT',
@@ -102,7 +103,12 @@ export const userService = {
         throw new Error(errorData.message || 'Error al actualizar el usuario')
       }
 
-      return await response.json()
+      const responseText = await response.text()
+      if (responseText) {
+        return JSON.parse(responseText)
+      } else {
+        return {}
+      }
     } catch (error) {
       console.error('Error actualizando el usuario:', error)
       throw error
