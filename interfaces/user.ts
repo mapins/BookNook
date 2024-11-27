@@ -2,9 +2,18 @@ export interface UserData {
   user_id?: number
   user_handle: string
   email_address: string
+  password?: string
+  first_name: string
+  last_name: string
+}
+
+export interface UpdateUserData {
+  user_handle: string
+  email_address: string
   password: string
   first_name: string
   last_name: string
+  [key: string]: string
 }
 
 export interface LoginData {
