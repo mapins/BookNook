@@ -73,7 +73,7 @@ export const userService = {
     }
   },
 
-  async getUserById(userId: number) {
+  async getUserById(userId: number | null) {
     try {
       const response = await fetch(`${BASE_URL}/${userId}`)
       if (!response.ok) {
@@ -82,6 +82,29 @@ export const userService = {
       return await response.json()
     } catch (error) {
       console.error('Error fetching user:', error)
+      throw error
+    }
+  },
+
+  async updateUser(userId: number | null, updatedData: Partial<UserData>) {
+    try {
+      const response = await fetch(`${BASE_URL}/${userId}`, {
+        method: 'PUT',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedData),
+      })
+
+      if (!response.ok) {
+        const errorData = await response.json()
+        throw new Error(errorData.message || 'Error al actualizar el usuario')
+      }
+
+      return await response.json()
+    } catch (error) {
+      console.error('Error actualizando el usuario:', error)
       throw error
     }
   },
