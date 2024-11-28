@@ -1,17 +1,3 @@
-<template>
-  <div class="all">
-    <h2>Registro</h2>
-    <form @submit.prevent="registerUser">
-      <input v-model="user.first_name" type="text" placeholder="Nombre" />
-      <input v-model="user.last_name" type="text" placeholder="Apellido" />
-      <input v-model="user.user_handle" type="text" placeholder="Nombre de usuario" />
-      <input v-model="user.email_address" type="email" placeholder="Correo electrónico" />
-      <input v-model="user.password" type="password" placeholder="Contraseña" />
-      <button type="submit">Registrar</button>
-    </form>
-  </div>
-</template>
-
 <script lang="ts" setup>
 import { ref } from 'vue'
 import { userService } from '@/services/userService'
@@ -25,22 +11,145 @@ const user = ref<UserData>({
   last_name: '',
 })
 
+const errorMessage = ref<string>('')
+
 const registerUser = async () => {
   try {
     const newUser = await userService.register(user.value)
     console.log('Usuario registrado:', newUser)
+    errorMessage.value = ''
+    navigateTo('/')
   } catch (error) {
-    console.error('Error en el registro', error)
+    if (error instanceof Error) {
+      errorMessage.value = error.message
+    } else {
+      errorMessage.value = 'Error en el registro. Intenta de nuevo.'
+    }
   }
 }
 </script>
+<template>
+  <div class="register">
+    <h2 class="register__title">Registro</h2>
+    <form @submit.prevent="registerUser" class="register__form">
+      <div class="register__group">
+        <input
+          v-model="user.first_name"
+          type="text"
+          placeholder="Nombre"
+          class="register__input"
+          required
+        />
+      </div>
+      <div class="register__group">
+        <input
+          v-model="user.last_name"
+          type="text"
+          placeholder="Apellido"
+          class="register__input"
+          required
+        />
+      </div>
+      <div class="register__group">
+        <input
+          v-model="user.user_handle"
+          type="text"
+          placeholder="Nombre de usuario"
+          class="register__input"
+          required
+        />
+      </div>
+      <div class="register__group">
+        <input
+          v-model="user.email_address"
+          type="email"
+          placeholder="Correo electrónico"
+          class="register__input"
+          required
+        />
+      </div>
+      <div class="register__group">
+        <input
+          v-model="user.password"
+          type="password"
+          placeholder="Contraseña"
+          class="register__input"
+          required
+        />
+      </div>
+      <button type="submit" class="register__button">Registrar</button>
+    </form>
+    <p v-if="errorMessage" class="register__error">{{ errorMessage }}</p>
+    <p class="register__login">
+      ¿Ya tienes una cuenta?
+      <NuxtLink to="/login" class="register__login-link"> Inicia sesión aquí </NuxtLink>
+    </p>
+  </div>
+</template>
 
 <style scoped lang="scss">
-.all {
+.register {
   color: white;
-}
-
-button {
-  background-color: white;
+  max-width: 25rem;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 2rem;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 0.5rem;
+  &__title {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+  }
+  &__form {
+    display: flex;
+    flex-direction: column;
+  }
+  &__group {
+    margin-bottom: 1rem;
+  }
+  &__input {
+    width: 100%;
+    padding: 0.8rem;
+    border-radius: 0.25rem;
+    background-color: var(--c-graphite);
+    font-size: 1rem;
+    &:focus {
+      border-color: var(--c-primary);
+      outline: none;
+    }
+  }
+  &__button {
+    padding: 0.8rem;
+    background-color: var(--c-primary);
+    color: white;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+    &:hover {
+      background-color: var(--c-primary-dark);
+    }
+  }
+  &__error {
+    color: var(--c-primary);
+    margin-top: 1rem;
+    text-align: center;
+  }
+  &__login {
+    text-align: center;
+    margin-top: 1.5rem;
+    &-link {
+      color: var(--c-primary);
+      text-decoration: none;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
 }
 </style>
