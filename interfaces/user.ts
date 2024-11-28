@@ -18,7 +18,7 @@ export interface UpdateUserData {
 
 export interface LoginData {
   email_address: string
-  password: string
+  password?: string
 }
 
 export interface AuthState {
