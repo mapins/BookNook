@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { userService } from '~/services/userService'
 defineProps<{
   title: string
   authors?: { name: string }[]
@@ -17,18 +16,18 @@ defineProps<{
     <div class="hero__content">
       <h1 class="hero__title">{{ title }}</h1>
       <section class="info">
-        <span v-for="(author, index) in authors" :key="index">
-          {{ author.name }}<span v-if="index < authors.length - 1">, </span>
+        <span v-if="authors && authors.length > 0">
+          <span v-for="(author, index) in authors" :key="index">
+            {{ author.name }}<span v-if="index < authors.length - 1">, </span>
+          </span>
         </span>
+        <span v-else>No hay autores disponibles</span>
         <p>{{ publicationDate }}</p>
         <p>{{ pageCount }}</p>
       </section>
       <p class="hero__subtitle">{{ subtitle }}</p>
       <NuxtLink v-if="buttonText" :to="buttonLink" class="hero__button">
         {{ buttonText }}
-      </NuxtLink>
-      <NuxtLink to="/" class="hero__button" @click="userService.logout()">
-        Salir
       </NuxtLink>
     </div>
   </section>
