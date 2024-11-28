@@ -13,11 +13,18 @@ export const userService = {
         body: JSON.stringify(userData),
       })
       if (!response.ok) {
-        const errorMessage = await response.text()
-        console.error('Server response:', errorMessage)
-        throw new Error('Error registering user')
+        const errorData = await response.json()
+        throw new Error(errorData.message || 'Error registering user')
       }
-      return await response.json()
+
+      const loginData: LoginData = {
+        email_address: userData.email_address,
+        password: userData.password,
+      }
+
+      const loginResponse = await this.login(loginData)
+
+      return loginResponse
     } catch (error) {
       console.error('Error registering user:', error)
       throw error
@@ -41,6 +48,7 @@ export const userService = {
 
       const authStore = useAuthStore()
       authStore.login(data.loggedUser)
+
       return data
     } catch (error) {
       console.error('Error logging in user:', error)
