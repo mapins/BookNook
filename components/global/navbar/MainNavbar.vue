@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import NavLinks from '@/components/global/navbar/NavLinks.vue'
-import NavButtons from '@/components/global/navbar/NavButtons.vue'
 </script>
 <template>
   <nav class="nav">
@@ -9,7 +8,6 @@ import NavButtons from '@/components/global/navbar/NavButtons.vue'
     </nav>
 
     <nav class="nav__links"><NavLinks /></nav>
-    <nav class="nav__buttons"><NavButtons /></nav>
   </nav>
 </template>
 
