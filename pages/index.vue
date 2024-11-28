@@ -22,7 +22,7 @@ onMounted(async () => {
     <Hero
       title="Descubre, los mejores libros"
       subtitle="Todo tipos de libros a tu alcance, averigua sobre ellos"
-      button-text="Crea tu cuenta"
+      button-text="CREA TU CUENTA"
       button-link="/register"
     />
     <Carousel :books />

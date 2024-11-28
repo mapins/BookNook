@@ -136,7 +136,7 @@ const handleSubmit = async () => {
     cursor: pointer;
     font-size: 1.2rem;
     &:hover {
-      background-color: #98002b;
+      background-color: var(--c-primary-hover);
     }
   }
 }
