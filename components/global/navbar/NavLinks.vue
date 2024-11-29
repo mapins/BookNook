@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import MainButton from '@/components/ui/buttons/MainButton.vue'
 import { useAuthStore } from '@/stores/auth'
 import { userService } from '~/services/userService'

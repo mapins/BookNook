@@ -1,4 +1,4 @@
-<script lang="ts" setup>
+<script setup lang="ts">
 import { ref } from 'vue'
 import type { BooksStatusByUser } from '~/interfaces/readingStatus'
 import { readingStatusService } from '~/services/readingStatusService'

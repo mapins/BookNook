@@ -1,4 +1,4 @@
-<script lang="ts" setup>
+<script setup lang="ts">
 import Listing from '~/components/Listing.vue'
 import { getBooks, getBooksByCategories } from '~/services/bookService'
 import Cross from '~/components/svg/Cross.vue'
