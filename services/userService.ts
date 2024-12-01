@@ -122,4 +122,29 @@ export const userService = {
       throw error
     }
   },
+  async deleteUser(userId: number | null) {
+    try {
+      const response = await fetch(`${BASE_URL}/${userId}`, {
+        method: 'DELETE',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('authToken')}`,
+        },
+      })
+
+      if (!response.ok) {
+        const errorData = await response.json()
+        throw new Error(errorData.message || 'Error al ELIMINAR el usuario')
+      }
+
+      const result = await response.json()
+      console.log(result.message)
+      const authStore = useAuthStore()
+      authStore.logout()
+    } catch (error) {
+      console.error('Error eliminando el usuario:', error)
+      throw error
+    }
+  },
 }
