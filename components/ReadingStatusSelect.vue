@@ -41,7 +41,6 @@ const saveStatus = async () => {
     }
   }
 }
-
 const deleteStatus = async () => {
   try {
     const result = await readingStatusService.deleteStatus({
@@ -59,7 +58,7 @@ const deleteStatus = async () => {
 watch(
   () => bookReadingStatus.value.status,
   async (newStatus, oldStatus) => {
-    if (oldStatus !== null && newStatus !== 'not_found') {
+    if (newStatus !== 'not_found') {
       await saveStatus()
     }
   },
@@ -74,7 +73,12 @@ watch(
       <option value="reading">Leyendo</option>
       <option value="desired">Deseado</option>
     </select>
-    <button v-if="bookReadingStatus.status" @click="deleteStatus">Eliminar Estado</button>
+    <button
+      v-if="bookReadingStatus.status && bookReadingStatus.status != 'not_found'"
+      @click="deleteStatus"
+    >
+      Eliminar Estado
+    </button>
   </div>
 </template>
 
