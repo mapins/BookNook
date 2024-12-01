@@ -5,19 +5,28 @@ import { readingStatusService } from '~/services/readingStatusService'
 
 const authStore = useAuthStore()
 
+const booksFound = ref(false)
 const books = ref([])
 const selectedStatus = ref<BooksStatusByUser['status']>('read')
 
 const getBooksByStatus = async (status: BooksStatusByUser['status']) => {
+  console.log(status)
   books.value = []
   selectedStatus.value = status
   const statusData: BooksStatusByUser = {
     user_id: authStore.userId,
-    status,
+    status: selectedStatus.value,
   }
   try {
     const fetchedBooks = await readingStatusService.getBooksByStatus(statusData)
+    console.log(fetchedBooks)
     books.value = fetchedBooks || []
+
+    if (books.value.length === 0) {
+      booksFound.value = false
+    } else {
+      booksFound.value = true
+    }
   } catch (error) {
     console.error('Error getting status books:', error)
   }
@@ -25,6 +34,7 @@ const getBooksByStatus = async (status: BooksStatusByUser['status']) => {
 
 onMounted(() => {
   if (authStore.userId) {
+    console.log('se mete aaaaaaaaaa')
     getBooksByStatus(selectedStatus.value)
   }
 })
@@ -45,7 +55,12 @@ onMounted(() => {
       </button>
     </div>
 
-    <Listing :books="books" />
+    <Listing v-if="booksFound" :books="books" />
+
+    <div v-else>
+      <SvgBooks />
+      <h2>No hemos enontrado nada...</h2>
+    </div>
   </div>
 </template>
 
@@ -55,6 +70,7 @@ onMounted(() => {
   text-align: center;
   background-color: var(--c-graphite);
   color: var(--c-white);
+  height: 100%;
 }
 
 .buttons {
