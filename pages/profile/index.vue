@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { useUser } from '~/composables/useUser'
 import type { UpdateUserData } from '~/interfaces/user'
+import { userService } from '~/services/userService'
 
 const { fetchUser, placeholders, updateUser } = useUser()
+const authStore = useAuthStore()
 
 const formData = ref<UpdateUserData>({
   first_name: '',
@@ -38,6 +40,21 @@ const handleSubmit = async () => {
     }
 
     console.log('Perfil actualizado exitosamente.')
+  }
+}
+
+const deleteUser = async () => {
+  const confirmDelete = await alertService.confirmDelete()
+  if (confirmDelete) {
+    try {
+      await userService.deleteUser(authStore.userId)
+      alertService.showSuccess('Tu cuenta ha sido eliminada con éxito')
+      navigateTo('/')
+    } catch (error) {
+      alertService.showError('Hubo un problema al eliminar tu cuenta')
+    }
+  } else {
+    console.log('Eliminación de cuenta cancelada')
   }
 }
 </script>
@@ -96,6 +113,10 @@ const handleSubmit = async () => {
       </div>
 
       <button type="submit" class="btn-save">Guardar Cambios</button>
+
+      <NuxtLink @click="deleteUser" class="login__register-link">
+        Eliminar cuenta
+      </NuxtLink>
     </form>
   </section>
 </template>
