@@ -65,17 +65,6 @@ export const readingStatusService = {
   },
 
   async getBooksByStatus(booksStatusByUser: BooksStatusByUser) {
-    console.log(booksStatusByUser)
-    const cacheStore = useCacheStore()
-
-    const cacheKey = `${booksStatusByUser.user_id}-${booksStatusByUser.status}`
-
-    const cachedData = cacheStore.getCache(cacheKey)
-
-    if (cachedData) {
-      console.log('Datos obtenidos del cache')
-      return cachedData
-    }
     try {
       const response = await fetch(
         `${BASE_URL}/user/${booksStatusByUser.user_id}/status/${booksStatusByUser.status}`,
@@ -92,7 +81,6 @@ export const readingStatusService = {
       }
       const data = await response.json()
 
-      cacheStore.setCache(cacheKey, data)
       return data
     } catch (error) {
       console.error('Error fetching books by status:', error)
