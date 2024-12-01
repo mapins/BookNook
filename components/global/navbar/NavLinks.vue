@@ -42,7 +42,9 @@ onMounted(() => {
           INICIA SESIÓN
         </MainButton>
         <div v-else class="nav-link__logged">
-          <SvgProfile class="nav-link__icon" />
+          <NuxtLink to="/profile" class="nav-link__profile">
+            <SvgProfile class="nav-link__icon" />
+          </NuxtLink>
           <NuxtLink to="/" class="nav-link__leave" @click="userService.logout()">
             <SvgLeave />
           </NuxtLink>
