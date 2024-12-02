@@ -2,23 +2,19 @@
 import type { Rating } from '~/interfaces'
 import { ratingsService } from '~/services/ratingService'
 const { userId } = useAuthStore()
-const route = useRoute()
-
-const bookId = Number(route.params.id)
 
 const props = defineProps<{
-  bookId?: number
+  bookId: number
 }>()
 
 const bookRating = ref<Rating>({
   user_id: userId,
-  book_id: props.bookId ?? bookId,
+  book_id: props.bookId,
   rating: 0,
 })
 
 const setRating = async (newRating: number) => {
   if (bookRating.value.rating === newRating) {
-    console.log('NOPUDE')
     deleteRating()
     return
   }

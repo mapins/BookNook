@@ -4,8 +4,12 @@ import { useRoute } from 'vue-router'
 import { readingStatusService } from '../services/readingStatusService'
 import type { ReadingStatus } from '~/interfaces/readingStatus'
 import { useAuthStore } from '@/stores/auth'
+
+const props = defineProps<{
+  bookId: number
+}>()
+
 const { userId } = useAuthStore()
-const route = useRoute()
 
 const bookReadingStatus = ref<ReadingStatus>({
   book_id: 0,
@@ -13,14 +17,13 @@ const bookReadingStatus = ref<ReadingStatus>({
   status: null,
 })
 
-const bookId = Number(route.params.id)
-bookReadingStatus.value.book_id = bookId
+bookReadingStatus.value.book_id = props.bookId
 
 onMounted(async () => {
-  if (!isNaN(bookId)) {
+  if (!isNaN(props.bookId)) {
     try {
       const status = await readingStatusService.getBookByStatus({
-        book_id: bookId,
+        book_id: props.bookId,
         user_id: userId,
       })
       if (status?.status) {
