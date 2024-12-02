@@ -10,6 +10,6 @@ export interface BooksStatusByUser {
 }
 
 export interface currentUserBook {
-  book_id: number | null
+  book_id: number | null | undefined
   user_id: number | null
 }
