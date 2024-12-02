@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { useRoute } from 'vue-router'
-import { getBookById } from '~/services/bookService'
+import { getBookById, getBookByTitle } from '~/services/bookService'
 import { ref, onMounted } from 'vue'
 import BookInfo from '~/components/BookInfo.vue'
 import type { Book } from '~/interfaces'
@@ -9,14 +9,19 @@ import { useAuthStore } from '@/stores/auth'
 const authStore = useAuthStore()
 
 const route = useRoute()
-const bookId = Number(route.params.id)
 
+const bookTitle = String(route.params.title)
+
+onMounted(() => {
+  console.log()
+})
 const book = ref<Book>()
 
 onMounted(async () => {
   try {
-    const fetchedBook = await getBookById(bookId)
+    const fetchedBook = await getBookByTitle(bookTitle)
     book.value = fetchedBook
+    console.log(book.value)
   } catch (error) {
     console.error('Error al obtener los libros:', error)
   }
@@ -46,8 +51,8 @@ const handleActionIfNotLoggedIn = () => {
       :page-count="book.pagecount"
       :subtitle="book.description"
     />
-    <ReadingStatusSelect @click="handleActionIfNotLoggedIn" />
-    <StarRating @click="handleActionIfNotLoggedIn" />
+    <ReadingStatusSelect @click="handleActionIfNotLoggedIn" :bookId="book.book_id" />
+    <StarRating @click="handleActionIfNotLoggedIn" :bookId="book.book_id" />
   </section>
 </template>
 
