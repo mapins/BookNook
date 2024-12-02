@@ -1,4 +1,8 @@
 <script setup lang="ts">
+import { useCreateSlug } from '~/composables/useCreateSlug'
+
+const { createSlug } = useCreateSlug()
+
 defineProps<{
   book_id: number
   coverpage: string
@@ -8,7 +12,7 @@ defineProps<{
 
 <template>
   <div class="card">
-    <NuxtLink :to="{ path: `/book/${book_id}` }" class="card__link">
+    <NuxtLink :to="{ path: `/book/${createSlug(title)}` }" class="card__link">
       <NuxtImg :src="coverpage" class="card__img" />
       <h2 class="card__title">{{ title }}</h2>
       <StarRating :bookId="book_id" />
