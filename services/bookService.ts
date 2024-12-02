@@ -43,6 +43,25 @@ export const getBookById = async (bookId: number) => {
     throw error
   }
 }
+export const getBookByTitle = async (bookTitle: string) => {
+  const cacheStore = useCacheStore()
+
+  const cachedData = cacheStore.getCache(`book-${bookTitle}`)
+  if (cachedData) {
+    console.log('Datos obtenidos del cache')
+    return cachedData
+  }
+  try {
+    const response = await fetch(`${BASE_URL}/title/${bookTitle}`)
+    if (!response.ok) throw new Error('Error al obtener el libro')
+    const data = await response.json()
+    cacheStore.setCache(`book-${bookTitle}`, data)
+    return data
+  } catch (error) {
+    console.error(`Error al obtener el libro con titulo ${bookTitle}:`, error)
+    throw error
+  }
+}
 
 export const getBooksByCategories = async (categoryIds: number[]) => {
   console.log(categoryIds)
