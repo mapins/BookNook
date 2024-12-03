@@ -1,42 +1,45 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import type { BooksStatusByUser } from '~/interfaces/readingStatus'
-import { readingStatusService } from '~/services/readingStatusService'
+import { getBooksByStatusAndRating } from '~/services/bookService'
 
 const authStore = useAuthStore()
 
 const booksFound = ref(false)
 const books = ref([])
 const selectedStatus = ref<BooksStatusByUser['status']>('read')
+const selectedRating = ref<number | null>(null)
 
-const getBooksByStatus = async (status: BooksStatusByUser['status']) => {
+const getBooksByStatus = async (
+  status: BooksStatusByUser['status'],
+  rating: number | null,
+) => {
   console.log(status)
   books.value = []
   selectedStatus.value = status
-  const statusData: BooksStatusByUser = {
-    user_id: authStore.userId,
-    status: selectedStatus.value,
-  }
-  try {
-    const fetchedBooks = await readingStatusService.getBooksByStatus(statusData)
-    console.log(fetchedBooks)
-    books.value = fetchedBooks || []
 
-    if (books.value.length === 0) {
-      booksFound.value = false
-    } else {
-      booksFound.value = true
-    }
+  try {
+    const fetchedBooks = await getBooksByStatusAndRating(
+      authStore.userId,
+      status,
+      rating !== null ? rating : null,
+    )
+
+    books.value = fetchedBooks || []
+    booksFound.value = books.value.length > 0
   } catch (error) {
-    console.error('Error getting status books:', error)
+    console.error('Error getting status and rating books:', error)
   }
 }
 
 onMounted(() => {
   if (authStore.userId) {
-    console.log('se mete aaaaaaaaaa')
-    getBooksByStatus(selectedStatus.value)
+    getBooksByStatus(selectedStatus.value, selectedRating.value)
   }
+})
+
+watch(selectedRating, (newRating) => {
+  getBooksByStatus(selectedStatus.value, newRating)
 })
 </script>
 
@@ -47,13 +50,24 @@ onMounted(() => {
         v-for="(status, index) in ['read', 'reading', 'desired']"
         :key="index"
         :class="{ active: selectedStatus === status }"
-        @click="getBooksByStatus(status as 'read' | 'reading' | 'desired')"
+        @click="
+          getBooksByStatus(status as 'read' | 'reading' | 'desired', selectedRating)
+        "
       >
         {{
           status === 'read' ? 'LEÍDOS' : status === 'reading' ? 'EN PROGRESO' : 'POR LEER'
         }}
       </button>
     </div>
+
+    <select v-model="selectedRating">
+      <option :value="null">Todos</option>
+      <option :value="1">1 Estrella</option>
+      <option :value="2">2 Estrellas</option>
+      <option :value="3">3 Estrellas</option>
+      <option :value="4">4 Estrellas</option>
+      <option :value="5">5 Estrellas</option>
+    </select>
 
     <Listing v-if="booksFound" :books="books" />
 
@@ -99,5 +113,9 @@ button:hover {
 button.active {
   color: var(--c-white);
   border-bottom: 0.2rem solid var(--c-white);
+}
+
+select {
+  background-color: white;
 }
 </style>
