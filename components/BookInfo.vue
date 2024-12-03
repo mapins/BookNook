@@ -44,7 +44,13 @@ const props = defineProps<{
 
             <li class="book-info__li">
               <p class="book-info__label">Categoría</p>
-              <p class="book-info__value">{{ categories }}</p>
+              <span
+                class="book-info__value"
+                v-for="(categorie, index) in categories"
+                :key="index"
+              >
+                {{ categorie.name }}<span v-if="index < categories.length - 1">, </span>
+              </span>
             </li>
           </ul>
         </section>
