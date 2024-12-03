@@ -34,7 +34,12 @@ const props = defineProps<{
       :modules="modules"
     >
       <SwiperSlide v-for="(book, index) in books" :key="index">
-        <Card :coverpage="book.coverpage" :book_id="book.book_id" :title="book.title" />
+        <Card
+          :coverpage="book.coverpage"
+          :book_id="book.book_id"
+          :title="book.title"
+          :slug="book.slug"
+        />
       </SwiperSlide>
 
       <div class="swiper-button-next" aria-label="Next slide"></div>
