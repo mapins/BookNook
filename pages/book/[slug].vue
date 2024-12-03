@@ -56,12 +56,19 @@ const handleActionIfNotLoggedIn = () => {
       :categories="categories"
     />
     <ReadingStatusSelect @click="handleActionIfNotLoggedIn" :bookId="book.book_id" />
-    <StarRating @click="handleActionIfNotLoggedIn" :bookId="book.book_id" />
+    <StarRating @click="handleActionIfNotLoggedIn" :bookId="book.book_id" class="stars" />
   </section>
 </template>
 
-<style>
+<style lang="scss" scoped>
 .book {
   color: white;
+}
+
+.stars {
+  padding: 3rem var(--s-padding-lateral-left) 3rem var(--s-padding-lateral-right);
+  @include responsive() {
+    padding: 3rem var(--s-padding-lateral-mobile);
+  }
 }
 </style>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const props = defineProps<{
+defineProps<{
   title: string
   subtitle: string
   publicationDate?: number
@@ -18,7 +18,7 @@ const props = defineProps<{
     <section class="book-info__container">
       <NuxtImg :src="coverpage" class="book-info__coverpage" />
 
-      <div class="book-info-content">
+      <div class="book-info__content">
         <h1 class="book-info__title">{{ title }}</h1>
         <p class="book-info__subtitle">{{ subtitle }}</p>
         <section class="info">
@@ -61,18 +61,21 @@ const props = defineProps<{
 
 <style lang="scss" scoped>
 .book-info {
+  padding: 3rem var(--s-padding-lateral-left) 3rem var(--s-padding-lateral-right);
   background-color: var(--c-graphite);
+  @include responsive() {
+    padding: 3rem var(--s-padding-lateral-mobile);
+  }
   &__title--principal {
     text-align: center;
     position: relative;
     h1 {
       display: inline-block;
-      padding: 1rem 1rem 0;
     }
     &::after {
       content: '';
       display: block;
-      width: 22%; /* Ajusta el ancho como prefieras */
+      width: 22%;
       height: 0.125rem;
       background-color: var(--c-white);
       margin: 0.5rem auto;
@@ -82,11 +85,18 @@ const props = defineProps<{
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    padding: 5rem;
     color: var(--c-white);
+    @include responsive() {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
   }
   &__content {
-    max-width: 40rem;
+    @include responsive() {
+      display: flex;
+      justify-content: center;
+    }
   }
   &__title {
     font-size: 2.4rem;
@@ -113,7 +123,10 @@ const props = defineProps<{
     height: 18.3125rem;
     width: 12.1875rem;
     object-fit: contain;
-    margin-right: 5rem;
+    margin: 0 5rem 0 0;
+    @include responsive() {
+      margin: 0;
+    }
   }
   &__li {
     display: flex;

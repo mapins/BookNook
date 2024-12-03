@@ -57,9 +57,13 @@
 
 <style lang="scss" module>
 .footer {
-  padding: 2rem 1.5rem 6.5rem;
+  bottom: 0;
+  padding: 3rem var(--s-padding-lateral-left) 3rem var(--s-padding-lateral-right);
   color: var(--c-grey-medium);
   background-color: var(--c-graphite);
+  @include responsive() {
+    padding: 3rem var(--s-padding-lateral-mobile);
+  }
   p {
     margin: 0.3rem 0;
   }

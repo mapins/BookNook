@@ -85,6 +85,10 @@ watch(selectedRating, (newRating) => {
   background-color: var(--c-graphite);
   color: var(--c-white);
   height: 100%;
+  padding: 0 var(--s-padding-lateral-left) 3rem var(--s-padding-lateral-right);
+  @include responsive() {
+    padding: 0 var(--s-padding-lateral-mobile);
+  }
 }
 
 .buttons {

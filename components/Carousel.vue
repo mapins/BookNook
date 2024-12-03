@@ -9,7 +9,7 @@ import Card from '@/components/Card.vue'
 
 const modules = [Keyboard, Scrollbar, Navigation]
 
-const props = defineProps<{
+defineProps<{
   books: object
 }>()
 </script>
@@ -50,8 +50,12 @@ const props = defineProps<{
 
 <style scoped lang="scss">
 .carousel {
+  height: 40rem;
   background-color: var(--c-graphite);
-  padding: 4rem 0 4rem 0;
+  padding: 3rem var(--s-padding-lateral-left) 3rem var(--s-padding-lateral-right);
+  @include responsive() {
+    padding: 3rem var(--s-padding-lateral-mobile);
+  }
 }
 
 .swiper-button-next,
@@ -75,7 +79,6 @@ const props = defineProps<{
 
 .swiper {
   width: 85vw;
-  height: auto;
 }
 
 .swiper-slide {
@@ -84,18 +87,15 @@ const props = defineProps<{
   align-items: center;
   justify-content: center;
   position: relative;
-  width: 10rem;
 }
 
 .swiper-slide img {
   display: block;
   width: 10rem;
-  height: 20rem;
 }
 
 .book-image {
   width: 100%;
-  height: 15rem;
 }
 
 @media only screen and (min-width: 48.0625rem) {

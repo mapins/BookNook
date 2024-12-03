@@ -68,7 +68,7 @@ watch(
 )
 </script>
 <template>
-  <div>
+  <div class="reading-status">
     <h1>Guardar Estado de Lectura</h1>
     <label for="status">Estado:</label>
     <select v-model="bookReadingStatus.status">
@@ -85,7 +85,14 @@ watch(
   </div>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
+.reading-status {
+  padding: 3rem var(--s-padding-lateral-left) 3rem var(--s-padding-lateral-right);
+  @include responsive() {
+    padding: 3rem var(--s-padding-lateral-mobile);
+  }
+}
+
 form {
   max-width: 25rem;
   margin: 0 auto;

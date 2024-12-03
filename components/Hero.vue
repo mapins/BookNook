@@ -21,7 +21,6 @@ defineProps<{
             {{ author.name }}<span v-if="index < authors.length - 1">, </span>
           </span>
         </span>
-        <span v-else>No hay autores disponibles</span>
         <p>{{ publicationDate }}</p>
         <p>{{ pageCount }}</p>
       </section>
@@ -38,12 +37,15 @@ defineProps<{
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  padding: 5rem;
+  padding: 3rem var(--s-padding-lateral-left) 3rem var(--s-padding-lateral-right);
   height: 60vh;
   color: var(--c-white);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  @include responsive() {
+    padding: 3rem var(--s-padding-lateral-mobile);
+  }
   &__content {
     max-width: 40rem;
   }
@@ -51,10 +53,16 @@ defineProps<{
     font-size: 2.5rem;
     font-weight: bold;
     margin-bottom: 1rem;
+    @include responsive() {
+      font-size: 2rem;
+    }
   }
   &__subtitle {
     font-size: 1.25rem;
     margin-bottom: 1.5rem;
+    @include responsive() {
+      font-size: 1rem;
+    }
   }
   &__button {
     display: inline-block;
