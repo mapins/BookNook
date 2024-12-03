@@ -1,8 +1,4 @@
-import type {
-  BooksStatusByUser,
-  currentUserBook,
-  ReadingStatus,
-} from '~/interfaces/readingStatus'
+import type { currentUserBook, ReadingStatus } from '~/interfaces/readingStatus'
 import { useCacheStore } from '~/stores/cache'
 
 const BASE_URL = 'https://booknookapi-production.up.railway.app/reading-status'
@@ -60,30 +56,6 @@ export const readingStatusService = {
       return data
     } catch (error) {
       console.error('Error deleting status:', error)
-      throw error
-    }
-  },
-
-  async getBooksByStatus(booksStatusByUser: BooksStatusByUser) {
-    try {
-      const response = await fetch(
-        `${BASE_URL}/user/${booksStatusByUser.user_id}/status/${booksStatusByUser.status}`,
-        {
-          method: 'GET',
-          credentials: 'include',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        },
-      )
-      if (!response.ok) {
-        throw new Error('Error fetching books by status')
-      }
-      const data = await response.json()
-
-      return data
-    } catch (error) {
-      console.error('Error fetching books by status:', error)
       throw error
     }
   },
