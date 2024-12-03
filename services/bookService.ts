@@ -107,3 +107,32 @@ export const getBookCategories = async (bookId: number) => {
     throw error
   }
 }
+export const getBooksByStatusAndRating = async (
+  userId: number | null,
+  status: string | null,
+  rating: number | null,
+) => {
+  /*   const cacheStore = useCacheStore()
+
+  const cachedData = cacheStore.getCache(`books-status-${status}-rating-${rating}`)
+  if (cachedData) {
+    console.log('Datos obtenidos del cache')
+    return cachedData
+  } */
+  try {
+    const response = await fetch(
+      `${BASE_URL}/user/${userId}?status=${status}&rating=${rating}`,
+    )
+
+    if (!response.ok) throw new Error('Error al obtener el libro')
+    const data = await response.json()
+    /*     cacheStore.setCache(`books-status-${status}-rating-${rating}`, data)
+     */ return data
+  } catch (error) {
+    console.error(
+      `Error al obtener los libros con estado ${status} y rating ${rating}:`,
+      error,
+    )
+    throw error
+  }
+}
