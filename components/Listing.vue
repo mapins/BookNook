@@ -7,7 +7,12 @@ defineProps<{
   <div class="listing">
     <ul>
       <li v-for="(book, index) in books" :key="index">
-        <Card :coverpage="book.coverpage" :book_id="book.book_id" :title="book.title" />
+        <Card
+          :coverpage="book.coverpage"
+          :book_id="book.book_id"
+          :title="book.title"
+          :slug="book.slug"
+        />
       </li>
     </ul>
   </div>
