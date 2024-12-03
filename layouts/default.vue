@@ -4,38 +4,9 @@ import MainFooter from '@/components/global/footer/MainFooter.vue'
 </script>
 
 <template>
-  <div class="layout">
-    <aside class="navbar">
-      <MainNavbar />
-    </aside>
-    <div class="main">
-      <main class="main__content">
-        <slot />
-      </main>
-      <footer class="footer">
-        <MainFooter />
-      </footer>
-    </div>
+  <div>
+    <MainNavbar />
+    <slot />
+    <MainFooter />
   </div>
 </template>
-
-<style scoped>
-.layout {
-  display: flex;
-  min-height: 100vh;
-}
-
-.navbar {
-  width: 6.5rem;
-}
-
-.main {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-}
-
-.main__content {
-  flex: 1;
-}
-</style>
