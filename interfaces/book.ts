@@ -7,6 +7,5 @@ export interface Book {
   coverpage: string
   pagecount: number
   publicationdate: number
-  averagerating: number
-  totalratings: number
+  slug: string
 }
