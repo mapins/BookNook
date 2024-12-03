@@ -14,23 +14,23 @@ onMounted(() => {
   <section class="nav-link">
     <ul class="nav-link__ul">
       <li class="nav-link__li">
-        <NuxtLink href="/"><SvgHome class="nav-link__icon" /></NuxtLink>
-      </li>
-      <li class="nav-link__li">
-        <NuxtLink to="/my-books"> <SvgBook class="nav-link__icon" /></NuxtLink>
-      </li>
-
-      <li class="nav-link__li">
-        <NuxtLink to="#"> <SvgStar class="nav-link__icon" /></NuxtLink>
-      </li>
-      <li class="nav-link__li">
-        <NuxtLink to="/search">
-          <SvgLens class="nav-link__icon" />
+        <NuxtLink href="/" class="nav-link__item">
+          <SvgHome class="nav-link__icon" />
         </NuxtLink>
       </li>
       <li class="nav-link__li">
+        <NuxtLink to="/my-books" class="nav-link__item">
+          <SvgBook class="nav-link__icon" />
+        </NuxtLink>
+      </li>
+      <li class="nav-link__li">
+        <NuxtLink to="/search" class="nav-link__item">
+          <SvgLens class="nav-link__icon" />
+        </NuxtLink>
+      </li>
+
+      <li v-if="!isLoggedIn" class="nav-link__li">
         <MainButton
-          v-if="!isLoggedIn"
           bg-color="var(--c-primary)"
           padding="0.2em 1em"
           color="var(--c-white)"
@@ -41,10 +41,13 @@ onMounted(() => {
         >
           INICIA SESIÓN
         </MainButton>
-        <div v-else class="nav-link__logged">
+      </li>
+      <li v-else class="nav-link__li">
+        <div class="nav-link__logged">
           <NuxtLink to="/profile" class="nav-link__profile">
             <SvgProfile class="nav-link__icon" />
           </NuxtLink>
+
           <NuxtLink to="/" class="nav-link__leave" @click="userService.logout()">
             <SvgLeave />
           </NuxtLink>
@@ -56,41 +59,37 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 .nav-link {
+  height: 100%;
   @include responsive() {
-    width: 100%;
-    margin: 0;
+    z-index: 5;
+    width: 80vw;
+    height: 4.5rem;
+    background-color: #000;
   }
   &__ul {
-    @include flex(column, $gap: 7em);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 100%;
     @include responsive() {
-      width: 100%;
-      @include flex(column, flex-start, $gap: 8em);
-      margin: 0;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
     }
   }
   &__li {
-    max-height: 4em;
-  }
-  &__a {
-    @include flex();
-  }
-  &__icon {
-    transition:
-      fill 0.3s ease,
-      transform 0.3s ease;
-    svg {
-      fill: var(--c-primary);
-    }
-    &:hover {
-      fill: var(--c-primary);
-      transform: scale(1.1);
-      stroke: var(--c-primary);
-    }
+    color: white;
   }
   &__logged {
     display: flex;
     flex-direction: column;
-    gap: 7rem;
+    gap: 6rem;
+    @include responsive() {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 3rem;
+    }
   }
 }
 </style>
