@@ -1,12 +1,14 @@
 <script setup lang="ts">
+import type { Book } from '@/interfaces'
+
 defineProps<{
-  books: object
+  books: Book[]
 }>()
 </script>
 <template>
   <div class="listing">
-    <ul>
-      <li v-for="(book, index) in books" :key="index">
+    <ul class="listing__list">
+      <li v-for="(book, index) in books" :key="index" class="listing__item">
         <Card
           :coverpage="book.coverpage"
           :book_id="book.book_id"
@@ -20,22 +22,34 @@ defineProps<{
 
 <style lang="scss" scoped>
 .listing {
-  background-color: var(--c-graphite);
-}
-
-.listing ul {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  flex-wrap: wrap;
-  overflow: scroll;
-  height: 92vh;
   padding: 1rem;
-}
+  max-height: 80vh;
+  overflow-y: auto;
+  background-color: var(--c-graphite);
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    overflow-y: auto;
+  }
+  &__item {
+    flex: 1 1 100%;
+    max-width: 100%;
+    @media (min-width: 40rem) {
+      flex: 1 1 calc(50% - 1rem);
+      max-width: calc(50% - 1rem);
+    }
+    @media (min-width: 64rem) {
+      flex: 1 1 calc(25% - 1rem);
+      max-width: calc(25% - 1rem);
+    }
 
-.listing li {
-  flex: 0 1 calc(25% - 1rem);
-  list-style: none;
-  display: flex;
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+  }
 }
 </style>
