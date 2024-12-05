@@ -2,20 +2,11 @@ import { useCacheStore } from '~/stores/cache'
 const BASE_URL = 'https://booknookapi-production.up.railway.app/books'
 
 export const getBooks = async () => {
-  const cacheStore = useCacheStore()
-
-  const cachedData = cacheStore.getCache('books')
-  if (cachedData) {
-    console.log('Datos obtenidos del cache')
-    return cachedData
-  }
-
   try {
     const response = await fetch(`${BASE_URL}`)
     if (!response.ok) throw new Error('Error al obtener los libros')
     const data = await response.json()
 
-    cacheStore.setCache('books', data)
     return data
   } catch (error) {
     console.error('Error en la solicitud a la API:', error)
@@ -66,13 +57,7 @@ export const getBookBySlug = async (bookSlug: string) => {
 
 export const getBooksByCategories = async (categoryIds: number[]) => {
   console.log(categoryIds)
-  const cacheStore = useCacheStore()
 
-  const cachedData = cacheStore.getCache(`books-category-${categoryIds.join('-')}`)
-  if (cachedData) {
-    console.log('Datos obtenidos del cache')
-    return cachedData
-  }
   try {
     const response = await fetch(
       `${BASE_URL}/categories?category_ids=${categoryIds.join(',')}`,
@@ -80,7 +65,6 @@ export const getBooksByCategories = async (categoryIds: number[]) => {
 
     if (!response.ok) throw new Error('Error al obtener el libro')
     const data = await response.json()
-    cacheStore.setCache(`books-category-${categoryIds.join('-')}`, data)
     return data
   } catch (error) {
     console.error(`Error al obtener los libros con categoria ${categoryIds}:`, error)
@@ -88,19 +72,11 @@ export const getBooksByCategories = async (categoryIds: number[]) => {
   }
 }
 export const getBookCategories = async (bookId: number) => {
-  const cacheStore = useCacheStore()
-
-  const cachedData = cacheStore.getCache(`books-category-${bookId}`)
-  if (cachedData) {
-    console.log('Datos obtenidos del cache')
-    return cachedData
-  }
   try {
     const response = await fetch(`${BASE_URL}/${bookId}/categories`)
 
     if (!response.ok) throw new Error('Error al obtener el libro')
     const data = await response.json()
-    cacheStore.setCache(`books-category-${bookId}`, data)
     return data
   } catch (error) {
     console.error(`Error al obtener las categorias con libro ID ${bookId}:`, error)
@@ -112,13 +88,6 @@ export const getBooksByStatusAndRating = async (
   status: string | null,
   rating: number | null,
 ) => {
-  /*   const cacheStore = useCacheStore()
-
-  const cachedData = cacheStore.getCache(`books-status-${status}-rating-${rating}`)
-  if (cachedData) {
-    console.log('Datos obtenidos del cache')
-    return cachedData
-  } */
   try {
     const response = await fetch(
       `${BASE_URL}/user/${userId}?status=${status}&rating=${rating}`,
@@ -126,8 +95,7 @@ export const getBooksByStatusAndRating = async (
 
     if (!response.ok) throw new Error('Error al obtener el libro')
     const data = await response.json()
-    /*     cacheStore.setCache(`books-status-${status}-rating-${rating}`, data)
-     */ return data
+    return data
   } catch (error) {
     console.error(
       `Error al obtener los libros con estado ${status} y rating ${rating}:`,
