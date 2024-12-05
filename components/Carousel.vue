@@ -6,11 +6,12 @@ import 'swiper/css/navigation'
 import { Keyboard, Scrollbar, Navigation } from 'swiper/modules'
 
 import Card from '@/components/Card.vue'
+import type { Book } from '@/interfaces'
 
 const modules = [Keyboard, Scrollbar, Navigation]
 
 defineProps<{
-  books: object
+  books: Book[]
 }>()
 </script>
 
@@ -18,13 +19,16 @@ defineProps<{
   <section class="carousel">
     <Swiper
       class="slider-banner"
-      :slidesPerGroupSkip="0"
-      :slidesPerView="5"
+      :slidesPerView="1"
+      :slidesPerGroup="1"
       :centeredSlides="false"
       :grabCursor="true"
       :keyboard="{ enabled: true }"
       :breakpoints="{
-        '769': { slidesPerView: 5, slidesPerGroup: 5 },
+        640: { slidesPerView: 1, slidesPerGroup: 1 },
+        768: { slidesPerView: 2, slidesPerGroup: 2 },
+        1024: { slidesPerView: 3, slidesPerGroup: 3 },
+        1280: { slidesPerView: 4, slidesPerGroup: 4 },
       }"
       :scrollbar="true"
       :navigation="{
@@ -50,9 +54,9 @@ defineProps<{
 
 <style scoped lang="scss">
 .carousel {
-  height: 40rem;
+  height: auto;
   background-color: var(--c-graphite);
-  padding: 3rem var(--s-padding-lateral-left) 3rem var(--s-padding-lateral-right);
+  padding: var(--s-padding-lateral);
   @include responsive() {
     padding: 3rem var(--s-padding-lateral-mobile);
   }
@@ -78,7 +82,7 @@ defineProps<{
 }
 
 .swiper {
-  width: 85vw;
+  width: 100%;
 }
 
 .swiper-slide {
