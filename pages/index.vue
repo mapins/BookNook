@@ -18,7 +18,7 @@ onMounted(async () => {
 })
 </script>
 <template>
-  <div class="home">
+  <main class="main">
     <Hero
       title="Descubre, los mejores libros"
       subtitle="Todo tipos de libros a tu alcance, averigua sobre ellos"
@@ -26,5 +26,5 @@ onMounted(async () => {
       button-link="/register"
     />
     <Carousel :books />
-  </div>
+  </main>
 </template>

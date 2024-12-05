@@ -66,7 +66,7 @@ const handleActionIfNotLoggedIn = () => {
 }
 
 .stars {
-  padding: 3rem var(--s-padding-lateral-left) 3rem var(--s-padding-lateral-right);
+  padding: var(--s-padding-lateral);
   @include responsive() {
     padding: 3rem var(--s-padding-lateral-mobile);
   }
