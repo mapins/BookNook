@@ -19,6 +19,11 @@ body {
   color: var(--c-black);
   min-height: 100vh;
   font-size: 100%;
+  padding-left: 7rem;
+  @include responsive() {
+    padding-left: 0;
+    padding-bottom: 4.5rem;
+  }
 }
 
 img,
