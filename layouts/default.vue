@@ -6,7 +6,7 @@ import MainFooter from '@/components/global/footer/MainFooter.vue'
 <template>
   <div>
     <MainNavbar />
-    <slot />
+    <NuxtPage />
     <MainFooter />
   </div>
 </template>
