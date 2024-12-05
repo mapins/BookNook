@@ -32,14 +32,14 @@ onMounted(() => {
       <li v-if="!isLoggedIn" class="nav-link__li">
         <MainButton
           bg-color="var(--c-primary)"
-          padding="0.2em 1em"
+          padding="0.1rem 0.5rem"
           color="var(--c-white)"
           font-size="0.9em"
-          width="5rem"
+          width="6rem"
           hover-color="var(--c-white)"
           to="/login"
         >
-          INICIA SESIÓN
+          INICIAR SESIÓN
         </MainButton>
       </li>
       <li v-else class="nav-link__li">
@@ -47,7 +47,10 @@ onMounted(() => {
           <NuxtLink to="/profile" class="nav-link__profile">
             <SvgProfile class="nav-link__icon" />
           </NuxtLink>
-
+        </div>
+      </li>
+      <li v-if="isLoggedIn" class="nav-link__li">
+        <div class="nav-link__logged">
           <NuxtLink to="/" class="nav-link__leave" @click="userService.logout()">
             <SvgLeave />
           </NuxtLink>
@@ -64,32 +67,30 @@ onMounted(() => {
     z-index: 5;
     width: 80vw;
     height: 4.5rem;
-    background-color: #000;
+    background-color: var(--c-black);
   }
   &__ul {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    align-items: center;
     height: 100%;
+    gap: 1rem;
     @include responsive() {
-      display: flex;
       flex-direction: row;
       align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
     }
   }
   &__li {
-    color: white;
-  }
-  &__logged {
+    color: var(--c-white);
     display: flex;
-    flex-direction: column;
-    gap: 6rem;
-    @include responsive() {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      gap: 3rem;
-    }
+    align-items: center;
+  }
+  &__icon {
+    width: 2rem;
+    height: 2rem;
   }
 }
 </style>

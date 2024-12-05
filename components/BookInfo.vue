@@ -61,7 +61,7 @@ defineProps<{
 
 <style lang="scss" scoped>
 .book-info {
-  padding: 3rem var(--s-padding-lateral-left) 3rem var(--s-padding-lateral-right);
+  padding: var(--s-padding-lateral);
   background-color: var(--c-graphite);
   @include responsive() {
     padding: 3rem var(--s-padding-lateral-mobile);

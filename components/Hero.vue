@@ -37,7 +37,7 @@ defineProps<{
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  padding: 3rem var(--s-padding-lateral-left) 3rem var(--s-padding-lateral-right);
+  padding: var(--s-padding-lateral);
   height: 60vh;
   color: var(--c-white);
   background-size: cover;

@@ -13,8 +13,9 @@ import NavLinks from '@/components/global/navbar/NavLinks.vue'
   left: 0;
   z-index: 5;
   height: 100%;
-  width: 4.5rem;
+  width: 7rem;
   background-color: var(--c-black);
+  border-right: 0.0625rem solid var(--c-graphite);
   @include responsive() {
     position: fixed;
     bottom: 0;

@@ -29,7 +29,7 @@ const styles = computed(() => ({
   '--color': props.color || 'var(--c-white)',
   '--hover-color': props.hoverColor || 'var(--c-white)',
   '--bg-color': props.bgColor || 'var(--c-primary)',
-  '--bg-hover': props.bgHover || 'transparent',
+  '--bg-hover': props.bgHover || 'var(--c-primary-dark)',
   '--height': props.height ? `${props.height}` : '3em',
   '--border-radius': props.borderRadius || '0.25em',
   '--border':
@@ -84,12 +84,13 @@ const isAnchor = computed(() => {
   border-radius: var(--border-radius);
   border: var(--border);
   padding: var(--padding);
-  transition: var(--t-transition-button);
+  transition: ease 0.8s;
   height: var(--height);
   letter-spacing: 0.0893rem;
   cursor: pointer;
   display: grid;
   place-items: center;
+  text-align: center;
   &:hover {
     background-color: var(--bg-hover);
     color: var(--hover-color);

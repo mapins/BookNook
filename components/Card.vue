@@ -30,10 +30,6 @@ defineProps<{
     box-shadow 0.2s;
   box-shadow: rgba(0, 0, 0, 0.35);
   @include flex(column, $justify: space-between);
-  &:hover {
-    transform: scale(1.05);
-    box-shadow: 0rem 4rem 10rem rgba(0, 0, 0, 0.5);
-  }
   &__link {
     @include flex(column, $gap: 0.5rem);
     text-decoration: none;
@@ -43,6 +39,13 @@ defineProps<{
     width: 12.1875rem;
     object-fit: cover;
     border-radius: 0.5rem;
+    transition:
+      transform 0.5s,
+      box-shadow 0.5s;
+    &:hover {
+      transform: scale(1.05);
+      box-shadow: 0rem 1rem 3rem rgba(0, 0, 0, 0.5);
+    }
   }
   &__title {
     display: flex;
