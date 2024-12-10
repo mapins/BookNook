@@ -10,33 +10,47 @@ defineProps<{
 <template>
   <div class="card">
     <NuxtLink :to="{ path: `/book/${slug}` }" class="card__link">
-      <NuxtImg :src="coverpage" class="card__img" />
-      <h2 class="card__title">{{ title }}</h2>
-
-      <div class="card__rating">
-        <div class="card__stars"><StarRating :bookId="book_id" /></div>
+      <div class="card__cover">
+        <NuxtImg :src="coverpage" class="card__img" />
       </div>
     </NuxtLink>
+    <h2 class="card__title">{{ title }}</h2>
+    <div class="card__status">
+      <ReadingStatusSelect :bookId="book_id" />
+    </div>
+    <div class="card__rating">
+      <div class="card__stars">
+        <StarRating :bookId="book_id" />
+      </div>
+    </div>
   </div>
 </template>
 <style scoped lang="scss">
+@import '/assets/styles/load.css';
+
 .card {
   width: 17rem;
-  height: 28rem;
+  height: 40rem;
   color: var(--c-white);
-  padding: 1rem;
   transition:
     transform 0.2s,
     box-shadow 0.2s;
   box-shadow: rgba(0, 0, 0, 0.35);
-  @include flex(column, $justify: space-between);
-  &__link {
-    @include flex(column, $gap: 0.5rem);
-    text-decoration: none;
+  animation: fadeInUp 1.5s ease-out;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  @include responsive() {
+    width: 14rem;
+    height: 30rem;
+  }
+  &__cover {
+    padding: 1rem;
+    overflow: visible;
   }
   &__img {
+    width: 17rem;
     height: 21rem;
-    width: 15rem;
     object-fit: fill;
     border-radius: 0.5rem;
     transition:
@@ -44,18 +58,29 @@ defineProps<{
       box-shadow 0.5s;
     &:hover {
       transform: scale(1.05);
-      box-shadow: 0rem 1rem 3rem rgba(0, 0, 0, 0.5);
+      box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.5);
+    }
+    @include responsive() {
+      width: 12rem;
+      height: 18rem;
     }
   }
   &__title {
-    display: flex;
-    flex-wrap: wrap;
-    font-size: 1.2rem;
+    margin-top: 1rem;
+    font-size: 1.3rem;
     text-align: center;
-    margin: 0.5rem 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    color: var(--c-white);
   }
   &__rating {
     margin-top: 0.5rem;
+  }
+  &__status {
+    width: 12rem;
+    margin-top: 1rem;
   }
 }
 </style>
