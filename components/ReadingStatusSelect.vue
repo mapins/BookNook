@@ -4,6 +4,10 @@ import { readingStatusService } from '../services/readingStatusService'
 import type { ReadingStatus } from '~/interfaces/readingStatus'
 import { useAuthStore } from '@/stores/auth'
 
+import { useAuthCheck } from '@/composables/useAuthCheck'
+
+const { handleActionIfNotLoggedIn } = useAuthCheck()
+
 const props = defineProps<{
   bookId: number
 }>()
@@ -11,23 +15,22 @@ const props = defineProps<{
 const authStore = useAuthStore()
 const { userId } = storeToRefs(authStore)
 
-const bookReadingStatus = ref<ReadingStatus>({
-  book_id: 0,
-  user_id: userId.value,
+const bookReadingStatus = ref<ReadingStatus | null>({
+  book_id: props.bookId,
+  user_id: null,
   status: null,
 })
-
-bookReadingStatus.value.book_id = props.bookId
-
 onMounted(async () => {
-  if (!isNaN(props.bookId)) {
+  if (userId.value && !isNaN(props.bookId)) {
     try {
       const status = await readingStatusService.getBookByStatus({
         book_id: props.bookId,
         user_id: userId.value,
       })
-      if (status?.status) {
-        bookReadingStatus.value.status = status.status
+      bookReadingStatus.value = {
+        book_id: props.bookId,
+        user_id: userId.value,
+        status: status?.status || null,
       }
     } catch (error) {
       console.error('Error fetching reading status:', error)
@@ -36,7 +39,7 @@ onMounted(async () => {
 })
 
 const saveStatus = async () => {
-  if (bookReadingStatus.value.status !== null) {
+  if (userId.value && bookReadingStatus.value?.status !== null) {
     try {
       await readingStatusService.saveStatus(bookReadingStatus.value)
     } catch (error) {
@@ -45,22 +48,24 @@ const saveStatus = async () => {
   }
 }
 const deleteStatus = async () => {
-  try {
-    const result = await readingStatusService.deleteStatus({
-      user_id: userId.value,
-      book_id: bookReadingStatus.value.book_id,
-    })
+  if (userId.value) {
+    try {
+      await readingStatusService.deleteStatus({
+        user_id: userId.value,
+        book_id: props.bookId,
+      })
 
-    console.log('Book status deleted: ', result)
-    bookReadingStatus.value.status = null
-  } catch (error) {
-    console.error('Error deleting status:', error)
+      if (bookReadingStatus.value) bookReadingStatus.value.status = null
+    } catch (error) {
+      console.error('Error deleting status:', error)
+    }
   }
 }
 
 watch(
-  () => bookReadingStatus.value.status,
+  () => bookReadingStatus.value?.status,
   async (newStatus, oldStatus) => {
+    if (!userId.value) return
     if (newStatus !== 'not_found') {
       await saveStatus()
     } else {
@@ -70,15 +75,15 @@ watch(
 )
 </script>
 <template>
-  <div class="reading-status">
+  <div class="reading-status" @click="handleActionIfNotLoggedIn">
     <form class="reading-status__form">
       <div class="reading-status__form-group">
         <label for="status" class="reading-status__label">Estado:</label>
         <select v-model="bookReadingStatus.status" class="reading-status__select">
           <option value="not_found"></option>
           <option value="read">Leído</option>
-          <option value="reading">Leyendo</option>
-          <option value="desired">Deseado</option>
+          <option value="reading">En progreso</option>
+          <option value="desired">Por leer</option>
         </select>
       </div>
     </form>
@@ -91,38 +96,48 @@ watch(
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: var(--c-graphite); // Ejemplo de uso de variable
   border-radius: 0.5rem;
   max-width: 30rem;
-  &__title {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: var(--c-white);
-    margin-bottom: 1.5rem;
-    text-align: center;
+  @include responsive() {
+    padding: 0 1rem;
+    max-width: 90%;
   }
   &__form {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-  }
-  &__form-group {
-    margin-bottom: 1.5rem;
+    &-group {
+      display: flex;
+      flex-direction: row;
+      gap: 0.5rem;
+      width: 100%;
+      position: relative;
+      &::after {
+        content: '▼';
+        position: absolute;
+        top: 50%;
+        right: 0.75rem;
+        transform: translateY(-50%);
+        pointer-events: none;
+        font-size: 0.75rem;
+        color: var(--c-white);
+      }
+    }
   }
   &__label {
     font-size: 1rem;
     font-weight: 500;
     color: var(--c-white);
-    margin-bottom: 0.5rem;
+    margin: auto;
   }
   &__select {
-    width: 100%;
+    width: 7rem;
     padding: 0.75rem;
+    padding-right: 2rem;
     border: 0.0625rem solid var(--c-white);
     border-radius: 0.5rem;
     font-size: 1rem;
     color: var(--c-white);
-    background-color: var(--c-graphite);
+    background-color: var(--c-graphite-dark);
+    appearance: none;
+    background-image: none;
     transition: border-color 0.3s ease;
     &:focus {
       border-color: var(--c-white);
@@ -140,27 +155,12 @@ watch(
       background-color: var(--c-graphite);
       color: white;
       margin-top: 1rem;
-      &:hover {
-        /*         background-color: darken(var(--c-white), 10%);
- */
-      }
     }
     &--delete {
       background-color: var(--c-graphite);
       color: white;
       margin-top: 1rem;
-      &:hover {
-        /*         background-color: darken(var(--c-white), 10%);
- */
-      }
     }
-  }
-}
-
-@media (max-width: 37.5rem) {
-  .reading-status {
-    padding: 1rem;
-    max-width: 90%;
   }
 }
 </style>

@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import type { Rating } from '~/interfaces'
 import { ratingsService } from '~/services/ratingService'
+import { useAuthCheck } from '@/composables/useAuthCheck'
+
+const { handleActionIfNotLoggedIn } = useAuthCheck()
+
 const authStore = useAuthStore()
 const { userId } = storeToRefs(authStore)
 
@@ -15,6 +19,10 @@ const bookRating = ref<Rating>({
 })
 
 const setRating = async (newRating: number) => {
+  if (!userId.value) {
+    handleActionIfNotLoggedIn()
+    return
+  }
   if (bookRating.value.rating === newRating) {
     deleteRating()
     return
@@ -39,7 +47,6 @@ const deleteRating = async () => {
       book_id: bookRating.value.book_id,
     })
 
-    console.log('Book rating deleted: ', result)
     bookRating.value.rating = 0
   } catch (error) {
     console.error('Error deleting rating:', error)
