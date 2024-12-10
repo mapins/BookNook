@@ -11,9 +11,6 @@ export const alertService = {
       confirmButtonColor: '#d33',
       cancelButtonColor: '#3085d6',
       confirmButtonText: 'Sí, eliminar!',
-      customClass: {
-        popup: 'dark',
-      },
     })
 
     return confirmDelete
@@ -22,9 +19,6 @@ export const alertService = {
     const { value: successLogin } = await Swal.fire({
       title: 'Te has logeado correctamente!',
       icon: 'success',
-      customClass: {
-        popup: 'dark',
-      },
     })
 
     return successLogin
@@ -33,9 +27,6 @@ export const alertService = {
     const { value: successSaveStatus } = await Swal.fire({
       title: 'El estado del libro se ha guardado correctamente!',
       icon: 'success',
-      customClass: {
-        popup: 'dark',
-      },
     })
 
     return successSaveStatus
@@ -44,9 +35,6 @@ export const alertService = {
     const { value: successRemoveStatus } = await Swal.fire({
       title: 'El estado del libro se ha eliminado correctamente!',
       icon: 'success',
-      customClass: {
-        popup: 'dark',
-      },
     })
 
     return successRemoveStatus
@@ -56,9 +44,6 @@ export const alertService = {
     const { value: successSaveRating } = await Swal.fire({
       title: 'La valoración del libro se ha guardado correctamente!',
       icon: 'success',
-      customClass: {
-        popup: 'dark',
-      },
     })
 
     return successSaveRating
@@ -67,9 +52,6 @@ export const alertService = {
     const { value: successRemoveRating } = await Swal.fire({
       title: 'La valoración del libro se ha eliminado correctamente!',
       icon: 'success',
-      customClass: {
-        popup: 'dark',
-      },
     })
 
     return successRemoveRating
@@ -80,9 +62,6 @@ export const alertService = {
       icon: 'success',
       title: 'Éxito',
       text: message,
-      customClass: {
-        popup: 'dark',
-      },
     })
   },
 
@@ -91,9 +70,6 @@ export const alertService = {
       icon: 'error',
       title: 'Error',
       text: message,
-      customClass: {
-        popup: 'dark',
-      },
     })
   },
 }
