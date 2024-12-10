@@ -32,8 +32,8 @@ const links = ref([
   { name: 'search', path: '/search', icon: markRaw(Lens) },
 ])
 
-function logout() {
-  userService.logout()
+async function logout() {
+  await userService.logout()
   reloadNuxtApp()
 }
 </script>
@@ -51,17 +51,7 @@ function logout() {
       </li>
 
       <li v-if="!isUserLogged" class="nav-link__li">
-        <MainButton
-          bg-color="var(--c-primary)"
-          padding="0.1rem 0.5rem"
-          color="var(--c-white)"
-          font-size="0.9em"
-          width="6rem"
-          hover-color="var(--c-white)"
-          to="/login"
-        >
-          INICIAR SESIÓN
-        </MainButton>
+        <NuxtLink to="/login" class="btn-cta">Iniciar sesión </NuxtLink>
       </li>
       <li v-else class="nav-link__li">
         <div class="nav-link__logged">
@@ -123,6 +113,25 @@ function logout() {
   .active {
     fill: var(--c-primary);
     stroke: var(--c-primary);
+  }
+  .btn-cta {
+    width: 5rem;
+    padding: 0.2rem 0.5rem;
+    background-color: var(--c-primary);
+    color: var(--c-white);
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    text-align: center;
+    transition:
+      background-color 0.3s ease,
+      transform 0.2s ease;
+    &:hover {
+      background-color: var(--c-primary-dark);
+      transform: scale(1.05);
+    }
+    &:focus {
+      outline: 0.1875rem solid var(--c-primary-light);
+    }
   }
 }
 </style>
