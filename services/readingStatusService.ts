@@ -1,5 +1,4 @@
 import type { currentUserBook, ReadingStatus } from '~/interfaces/readingStatus'
-import { useCacheStore } from '~/stores/cache'
 
 const BASE_URL = 'https://booknookapi-production.up.railway.app/reading-status'
 
@@ -18,12 +17,6 @@ export const readingStatusService = {
       }
 
       const savedData = await response.json()
-
-      const cacheStore = useCacheStore()
-
-      const cacheKey = `user-${readingStatus.user_id}-book-${readingStatus.book_id}-readingStatus`
-      cacheStore.clearCache(cacheKey)
-      cacheStore.setCache(cacheKey, savedData)
 
       return savedData
     } catch (error) {
@@ -47,12 +40,6 @@ export const readingStatusService = {
 
       const data = await response.json()
 
-      const cacheStore = useCacheStore()
-
-      const cacheKey = `user-${currentUserBook.user_id}-book-${currentUserBook.book_id}-readingStatus`
-      cacheStore.clearCache(cacheKey)
-      cacheStore.setCache(cacheKey, data)
-
       return data
     } catch (error) {
       console.error('Error deleting status:', error)
@@ -61,23 +48,7 @@ export const readingStatusService = {
   },
 
   async getBookByStatus(currentUserBook: currentUserBook) {
-    const authStore = useAuthStore()
-
-    const userId = authStore.userId
-    if (!userId) {
-      throw new Error('Usuario no autenticado')
-    }
-    const cacheStore = useCacheStore()
-    const cacheKey = `user-${currentUserBook.user_id}-book-${currentUserBook.book_id}-readingStatus`
-
-    const cachedData = cacheStore.getCache(cacheKey)
-
-    if (cachedData) {
-      console.log(
-        `Estado del libro con ID ${currentUserBook.book_id} obtenidos del caché`,
-      )
-      return cachedData
-    }
+    console.log(currentUserBook.user_id)
 
     try {
       const response = await fetch(
@@ -94,8 +65,6 @@ export const readingStatusService = {
       }
 
       const data = response.json()
-
-      cacheStore.setCache(cacheKey, data)
       return data
     } catch (error) {
       console.error('Error when searching for the users books with his status:', error)

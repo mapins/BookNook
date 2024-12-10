@@ -1,5 +1,4 @@
 import type { Rating } from '~/interfaces'
-import { useCacheStore } from '~/stores/cache'
 import type { currentUserBook } from '~/interfaces/readingStatus'
 
 const BASE_URL = 'https://booknookapi-production.up.railway.app/ratings'
@@ -19,12 +18,6 @@ export const ratingsService = {
       }
 
       const data = await response.json()
-
-      const cacheStore = useCacheStore()
-
-      const cacheKey = `user-${rating.user_id}-book-${rating.book_id}-rating`
-      cacheStore.clearCache(cacheKey)
-      cacheStore.setCache(cacheKey, data)
 
       return data
     } catch (error) {
@@ -48,12 +41,6 @@ export const ratingsService = {
 
       const data = await response.json()
 
-      const cacheStore = useCacheStore()
-
-      const cacheKey = `user-${currentUserBook.user_id}-book-${currentUserBook.book_id}-rating`
-      cacheStore.clearCache(cacheKey)
-      cacheStore.setCache(cacheKey, data)
-
       return data
     } catch (error) {
       console.error('Error deleting status:', error)
@@ -62,18 +49,6 @@ export const ratingsService = {
   },
 
   async getRatingByUserAndBook(rating: Rating) {
-    const cacheStore = useCacheStore()
-    const cacheKey = `user-${rating.user_id}-book-${rating.book_id}-rating`
-
-    const cachedData = cacheStore.getCache(cacheKey)
-
-    if (cachedData) {
-      console.log(
-        `Datos de la valoración para el libro ${rating.book_id} obtenidos del caché`,
-      )
-
-      return cachedData
-    }
     try {
       const response = await fetch(
         `${BASE_URL}/user/${rating.user_id}/book/${rating.book_id}/rating`,
@@ -90,7 +65,6 @@ export const ratingsService = {
 
       const data = await response.json()
 
-      cacheStore.setCache(cacheKey, data)
       return data
     } catch (error) {
       console.error('Error when searching for the users books with his status:', error)
