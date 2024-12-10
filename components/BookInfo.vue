@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useAuthCheck } from '@/composables/useAuthCheck'
+
 defineProps<{
   bookId: number
   title: string
@@ -13,12 +15,7 @@ const authStore = useAuthStore()
 const { user } = storeToRefs(authStore)
 
 const isUserLogged = computed(() => !!user.value)
-
-const handleActionIfNotLoggedIn = () => {
-  if (!isUserLogged) {
-    navigateTo('/login')
-  }
-}
+const { handleActionIfNotLoggedIn } = useAuthCheck()
 </script>
 <template>
   <section class="book-info">
@@ -89,118 +86,106 @@ const handleActionIfNotLoggedIn = () => {
 .book-info {
   padding: var(--s-padding-lateral);
   background-color: var(--c-graphite);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   @include responsive() {
-    padding: 3rem var(--s-padding-lateral-mobile);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    padding: 2rem var(--s-padding-lateral-mobile);
   }
-  &__header {
+  &__title--principal {
     text-align: center;
-    position: relative;
-    &-title {
-      display: inline-block;
-      font-size: 2.4rem;
-      margin-bottom: 1rem;
-    }
-    &::after {
-      content: '';
-      display: block;
-      width: 22%;
-      height: 0.125rem;
-      background-color: var(--c-white);
-      margin: 0.5rem auto;
+    font-size: 2.5rem;
+    color: var(--c-white);
+    margin-bottom: 1rem;
+    @include responsive() {
+      font-size: 2rem;
     }
   }
   &__container {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 2rem;
+    width: 100%;
+    max-width: 75rem;
     color: var(--c-white);
     @include responsive() {
       flex-direction: column;
       align-items: center;
+      gap: 1.5rem;
     }
   }
   &__actions {
-    width: 50rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 5rem 0;
+    width: 40%;
+    @include responsive() {
+      width: 100%;
+      align-items: center;
+    }
   }
   &__img {
-    min-width: 20rem;
     display: flex;
     justify-content: center;
+    margin-bottom: 1rem;
+  }
+  &__coverpage {
+    width: 100%;
+    max-width: 18rem;
+    object-fit: cover;
+    border-radius: 0.5rem;
+    @include responsive() {
+      max-width: 16rem;
+      height: auto;
+    }
   }
   &__methods {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
     width: 100%;
-    padding: 1rem 0;
   }
   &__stars {
     display: flex;
     justify-content: center;
   }
-  &__coverpage {
-    width: 19rem;
-    object-fit: cover;
-    @include responsive() {
-      height: 16rem;
-      width: auto;
-      margin-bottom: 1rem;
-    }
-  }
   &__content {
+    flex: 1;
     display: flex;
     flex-direction: column;
     gap: 1rem;
     @include responsive() {
       text-align: center;
+      width: 100%;
     }
   }
   &__ul {
     display: flex;
     flex-wrap: wrap;
+    gap: 1rem;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    @include responsive() {
+      flex-direction: column;
+    }
   }
   &__li {
-    width: 50%;
-    padding: 1rem;
+    width: calc(50% - 1rem);
+    @include responsive() {
+      width: 100%;
+    }
   }
   &__label {
-    max-width: 10rem;
+    font-weight: bold;
+    color: var(--c-light-gray);
   }
   &__subtitle {
     font-size: 1.25rem;
-    margin-bottom: 1rem;
     color: var(--c-light-gray);
-  }
-  &__details {
-    &-list {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-    &-item {
-      display: flex;
-      gap: 0.5rem;
-      &-label {
-        width: 8rem;
-        font-weight: bold;
-        color: var(--c-light-gray);
-        @include responsive() {
-          width: auto;
-          flex: 1;
-        }
-      }
-      &-value {
-        flex: 2;
-        color: var(--c-white);
-        font-size: 1rem;
-        span:not(:last-child)::after {
-          content: ', ';
-        }
-      }
+    margin-bottom: 1rem;
+    @include responsive() {
+      font-size: 1.1rem;
     }
   }
 }
