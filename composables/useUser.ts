@@ -4,11 +4,12 @@ import { useAuthStore } from '~/stores/auth'
 
 export function useUser() {
   const authStore = useAuthStore()
+  const { userId } = storeToRefs(authStore)
   const currentUser = ref<UpdateUserData | null>(null)
 
   const fetchUser = async () => {
     try {
-      const user = await userService.getUserById(authStore.userId)
+      const user = await userService.getUserById(userId.value)
       currentUser.value = user
     } catch (error) {
       console.error('Error al obtener el usuario:', error)
@@ -26,7 +27,7 @@ export function useUser() {
   // Aqui lo que hago es que recojo el campo que quiero actualizar, y value es el nuevo valor que le asignare, llamo al servicio (le paso por field el campo a actualizar y value el nuevo valor) y lo actualizo, si va bien lo actualizo en currentUser.
   const updateUser = async (updatedFields: { [key: string]: string }) => {
     try {
-      await userService.updateUser(authStore.userId, updatedFields)
+      await userService.updateUser(userId.value, updatedFields)
       if (currentUser.value) {
         // Actualizo los campos de mi elemento local
         Object.keys(updatedFields).forEach((field) => {
