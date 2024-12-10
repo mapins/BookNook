@@ -3,7 +3,7 @@ import { useUser } from '~/composables/useUser'
 import type { UpdateUserData } from '~/interfaces/user'
 import { userService } from '~/services/userService'
 
-const { fetchUser, placeholders, updateUser } = useUser()
+const { fetchUser, placeholders, updateUser, errorMessage } = useUser()
 const authStore = useAuthStore()
 const { userId } = storeToRefs(authStore)
 
@@ -20,6 +20,7 @@ onMounted(fetchUser)
 const handleSubmit = async () => {
   const updatedFields: { [key: string]: string } = {}
 
+  // Comprobamos los campos del formulario para saber si han cambiado
   for (const key in formData.value) {
     // Lo que hago es que si me han escrito algo y es distinto al placeholder y no esta vacío es decir lo han modificado, lo mete el updatedFields
     if (
@@ -29,15 +30,25 @@ const handleSubmit = async () => {
       updatedFields[key] = formData.value[key]
     }
   }
-
+  // Si hay campos actualizados, los enviamos
   if (Object.keys(updatedFields).length > 0) {
-    await updateUser(updatedFields) // Paso solo los campos que han cambiado
-    formData.value = {
-      first_name: '',
-      last_name: '',
-      user_handle: '',
-      email_address: '',
-      password: '',
+    try {
+      await updateUser(updatedFields)
+      // Paso solo los campos que han cambiado
+      formData.value = {
+        first_name: '',
+        last_name: '',
+        user_handle: '',
+        email_address: '',
+        password: '',
+      }
+      errorMessage.value = null
+    } catch (error) {
+      if (error instanceof Error) {
+        errorMessage.value = error.message
+      } else {
+        errorMessage.value = 'Error en el registro. Intenta de nuevo.'
+      }
     }
   }
 }
@@ -113,6 +124,7 @@ const deleteUser = async () => {
         </div>
 
         <button type="submit" class="btn-save">Guardar Cambios</button>
+        <p v-if="errorMessage" class="register__error">{{ errorMessage }}</p>
 
         <p class="user-edit__delete">
           ¿Desea eliminar su cuenta?
