@@ -1,13 +1,24 @@
 <script setup lang="ts">
 defineProps<{
+  bookId: number
   title: string
   subtitle: string
   publicationDate?: number
   authors?: { name: string }[]
   pageCount?: number
-  categories?: string
+  categories?: { name: string }[]
   coverpage?: string
 }>()
+const authStore = useAuthStore()
+const { user } = storeToRefs(authStore)
+
+const isUserLogged = computed(() => !!user.value)
+
+const handleActionIfNotLoggedIn = () => {
+  if (!isUserLogged) {
+    navigateTo('/login')
+  }
+}
 </script>
 <template>
   <section class="book-info">
@@ -16,19 +27,34 @@ defineProps<{
     </div>
 
     <section class="book-info__container">
-      <NuxtImg :src="coverpage" class="book-info__coverpage" />
+      <div class="book-info__actions">
+        <div class="book-info__img">
+          <NuxtImg :src="coverpage" class="book-info__coverpage" />
+        </div>
+        <div class="book-info__methods">
+          <ReadingStatusSelect
+            @click="handleActionIfNotLoggedIn"
+            :bookId="$props.bookId"
+          />
+          <StarRating
+            @click="handleActionIfNotLoggedIn"
+            :bookId="$props.bookId"
+            class="book-info__stars"
+          />
+        </div>
+      </div>
 
       <div class="book-info__content">
         <h1 class="book-info__title">{{ title }}</h1>
         <p class="book-info__subtitle">{{ subtitle }}</p>
-        <section class="info">
+        <section class="book-info__data">
           <ul class="book-info__ul">
             <li class="book-info__li">
-              <p class="book-info__label">Año de publicación</p>
+              <p class="book-info__label"><strong>Año de publicación</strong></p>
               <p class="book-info__value">{{ publicationDate }}</p>
             </li>
             <li class="book-info__li">
-              <p class="book-info__label">Autores</p>
+              <p class="book-info__label"><strong>Autores</strong></p>
               <span
                 class="book-info__value"
                 v-for="(author, index) in authors"
@@ -38,12 +64,12 @@ defineProps<{
               </span>
             </li>
             <li class="book-info__li">
-              <p class="book-info__label">Número de páginas</p>
+              <p class="book-info__label"><strong>Número de páginas</strong></p>
               <p class="book-info__value">{{ pageCount }}</p>
             </li>
 
             <li class="book-info__li">
-              <p class="book-info__label">Categoría</p>
+              <p class="book-info__label"><strong>Categoría</strong></p>
               <span
                 class="book-info__value"
                 v-for="(categorie, index) in categories"
@@ -65,12 +91,17 @@ defineProps<{
   background-color: var(--c-graphite);
   @include responsive() {
     padding: 3rem var(--s-padding-lateral-mobile);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
-  &__title--principal {
+  &__header {
     text-align: center;
     position: relative;
-    h1 {
+    &-title {
       display: inline-block;
+      font-size: 2.4rem;
+      margin-bottom: 1rem;
     }
     &::after {
       content: '';
@@ -84,60 +115,93 @@ defineProps<{
   &__container {
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    gap: 2rem;
     color: var(--c-white);
     @include responsive() {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+  &__actions {
+    width: 50rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 5rem 0;
+  }
+  &__img {
+    min-width: 20rem;
+    display: flex;
+    justify-content: center;
+  }
+  &__methods {
+    width: 100%;
+    padding: 1rem 0;
+  }
+  &__stars {
+    display: flex;
+    justify-content: center;
+  }
+  &__coverpage {
+    width: 19rem;
+    object-fit: cover;
+    @include responsive() {
+      height: 16rem;
+      width: auto;
+      margin-bottom: 1rem;
     }
   }
   &__content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
     @include responsive() {
-      display: flex;
-      justify-content: center;
+      text-align: center;
     }
   }
-  &__title {
-    font-size: 2.4rem;
-    margin-bottom: 1rem;
+  &__ul {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  &__li {
+    width: 50%;
+    padding: 1rem;
+  }
+  &__label {
+    max-width: 10rem;
   }
   &__subtitle {
     font-size: 1.25rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--c-light-gray);
   }
-  &__button {
-    display: inline-block;
-    padding: 0.75rem 1.5rem;
-    font-size: 1rem;
-    color: var(--c-white);
-    background-color: var(--c-primary);
-    border-radius: 0.5rem;
-    text-decoration: none;
-    transition: background-color 0.3s ease;
-    &:hover {
-      background-color: var(--c-primary-dark);
+  &__details {
+    &-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
     }
-  }
-  &__coverpage {
-    height: 18.3125rem;
-    width: 12.1875rem;
-    object-fit: contain;
-    margin: 0 5rem 0 0;
-    @include responsive() {
-      margin: 0;
+    &-item {
+      display: flex;
+      gap: 0.5rem;
+      &-label {
+        width: 8rem;
+        font-weight: bold;
+        color: var(--c-light-gray);
+        @include responsive() {
+          width: auto;
+          flex: 1;
+        }
+      }
+      &-value {
+        flex: 2;
+        color: var(--c-white);
+        font-size: 1rem;
+        span:not(:last-child)::after {
+          content: ', ';
+        }
+      }
     }
-  }
-  &__li {
-    display: flex;
-    gap: 1rem;
-    padding: 0.2rem 0;
-  }
-  &__label {
-    width: 6.875rem;
-  }
-  &__value {
-    flex: 2;
   }
 }
 </style>

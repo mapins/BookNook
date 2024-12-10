@@ -1,14 +1,15 @@
 <script setup lang="ts">
 import type { Rating } from '~/interfaces'
 import { ratingsService } from '~/services/ratingService'
-const { userId } = useAuthStore()
+const authStore = useAuthStore()
+const { userId } = storeToRefs(authStore)
 
 const props = defineProps<{
   bookId: number
 }>()
 
 const bookRating = ref<Rating>({
-  user_id: userId,
+  user_id: userId.value,
   book_id: props.bookId,
   rating: 0,
 })
@@ -34,7 +35,7 @@ const saveRating = async (bookRating: Rating) => {
 const deleteRating = async () => {
   try {
     const result = await ratingsService.deleteRating({
-      user_id: userId,
+      user_id: userId.value,
       book_id: bookRating.value.book_id,
     })
 

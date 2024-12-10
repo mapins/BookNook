@@ -5,6 +5,7 @@ import { userService } from '~/services/userService'
 
 const { fetchUser, placeholders, updateUser } = useUser()
 const authStore = useAuthStore()
+const { userId } = storeToRefs(authStore)
 
 const formData = ref<UpdateUserData>({
   first_name: '',
@@ -47,7 +48,7 @@ const deleteUser = async () => {
   const confirmDelete = await alertService.confirmDelete()
   if (confirmDelete) {
     try {
-      await userService.deleteUser(authStore.userId)
+      await userService.deleteUser(userId.value)
       alertService.showSuccess('Tu cuenta ha sido eliminada con éxito')
       navigateTo('/')
     } catch (error) {

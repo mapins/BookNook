@@ -12,7 +12,7 @@ const errorMessage = ref<string>('')
 
 const loginUser = async () => {
   try {
-    const existingUser = await userService.login(user.value)
+    await userService.login(user.value)
     errorMessage.value = ''
     await navigateTo('/')
   } catch (error) {

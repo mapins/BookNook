@@ -4,6 +4,7 @@ import type { BooksStatusByUser } from '~/interfaces/readingStatus'
 import { getBooksByStatusAndRating } from '~/services/bookService'
 
 const authStore = useAuthStore()
+const { userId } = storeToRefs(authStore)
 
 const booksFound = ref(false)
 const books = ref([])
@@ -20,7 +21,7 @@ const getBooksByStatus = async (
 
   try {
     const fetchedBooks = await getBooksByStatusAndRating(
-      authStore.userId,
+      userId.value,
       status,
       rating !== null ? rating : null,
     )
@@ -33,7 +34,7 @@ const getBooksByStatus = async (
 }
 
 onMounted(() => {
-  if (authStore.userId) {
+  if (userId.value) {
     getBooksByStatus(selectedStatus.value, selectedRating.value)
   }
 })
