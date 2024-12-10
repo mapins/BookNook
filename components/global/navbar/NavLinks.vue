@@ -1,35 +1,46 @@
 <script setup lang="ts">
 import MainButton from '@/components/ui/buttons/MainButton.vue'
 import { useAuthStore } from '@/stores/auth'
+import Book from '~/components/svg/Book.vue'
+import Home from '~/components/svg/Home.vue'
+import Lens from '~/components/svg/Lens.vue'
 import { userService } from '~/services/userService'
 
-const authStore = useAuthStore()
-const { isLoggedIn } = storeToRefs(authStore)
+const route = useRoute()
 
-onMounted(() => {
-  console.log(isLoggedIn.value)
-})
+const authStore = useAuthStore()
+const { user } = storeToRefs(authStore)
+
+const isUserLogged = computed(() => !!user.value)
+const selectedLink = ref(route.path)
+
+watch(
+  () => route.path,
+  (newPath) => {
+    selectedLink.value = newPath
+  },
+)
+
+const links = ref([
+  { name: 'home', path: '/', icon: Home },
+  { name: 'my-books', path: '/my-books', icon: Book },
+  { name: 'search', path: '/search', icon: Lens },
+])
 </script>
 <template>
   <section class="nav-link">
     <ul class="nav-link__ul">
-      <li class="nav-link__li">
-        <NuxtLink href="/" class="nav-link__item">
-          <SvgHome class="nav-link__icon" />
-        </NuxtLink>
-      </li>
-      <li class="nav-link__li">
-        <NuxtLink to="/my-books" class="nav-link__item">
-          <SvgBook class="nav-link__icon" />
-        </NuxtLink>
-      </li>
-      <li class="nav-link__li">
-        <NuxtLink to="/search" class="nav-link__item">
-          <SvgLens class="nav-link__icon" />
+      <li v-for="link in links" :key="link.name" class="nav-link__li">
+        <NuxtLink :to="link.path" class="nav-link__item">
+          <component
+            :is="link.icon"
+            class="nav-link__icon"
+            :class="{ active: selectedLink === link.path }"
+          />
         </NuxtLink>
       </li>
 
-      <li v-if="!isLoggedIn" class="nav-link__li">
+      <li v-if="!isUserLogged" class="nav-link__li">
         <MainButton
           bg-color="var(--c-primary)"
           padding="0.1rem 0.5rem"
@@ -44,12 +55,15 @@ onMounted(() => {
       </li>
       <li v-else class="nav-link__li">
         <div class="nav-link__logged">
-          <NuxtLink to="/profile" class="nav-link__profile">
-            <SvgProfile class="nav-link__icon" />
+          <NuxtLink to="/profile">
+            <SvgProfile
+              class="nav-link__icon"
+              :class="{ active: selectedLink === '/profile' }"
+            />
           </NuxtLink>
         </div>
       </li>
-      <li v-if="isLoggedIn" class="nav-link__li">
+      <li v-if="isUserLogged" class="nav-link__li">
         <div class="nav-link__logged">
           <NuxtLink to="/" class="nav-link__leave" @click="userService.logout()">
             <SvgLeave />
@@ -91,6 +105,11 @@ onMounted(() => {
   &__icon {
     width: 2rem;
     height: 2rem;
+    transition: fill 0.3s ease;
+  }
+  .active {
+    fill: var(--c-primary);
+    stroke: var(--c-primary);
   }
 }
 </style>
