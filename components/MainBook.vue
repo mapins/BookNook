@@ -4,7 +4,6 @@ import { getBookBySlug, getBookCategories } from '~/services/bookService'
 import { ref, onMounted } from 'vue'
 import BookInfo from '~/components/BookInfo.vue'
 import type { Book } from '~/interfaces'
-import { useAuthStore } from '@/stores/auth'
 
 const route = useRoute()
 

@@ -13,12 +13,6 @@
   </section>
 </template>
 
-<script>
-export default {
-  name: 'Hero',
-}
-</script>
-
 <style scoped>
 @import '/assets/styles/load.css';
 

@@ -29,7 +29,7 @@ defineProps<{
 @import '/assets/styles/load.css';
 
 .card {
-  width: 17rem;
+  width: 16rem;
   height: 40rem;
   color: var(--c-white);
   transition:
@@ -72,7 +72,7 @@ defineProps<{
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    max-width: 100%;
+    max-width: 85%;
     color: var(--c-white);
   }
   &__rating {

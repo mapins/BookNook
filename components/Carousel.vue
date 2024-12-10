@@ -73,13 +73,6 @@ defineProps<{
     font-weight: 1000;
     color: var(--c-white);
   }
-  &:hover {
-    background: rgba(0, 0, 0, 0.2);
-    color: var(--c-white);
-    transition:
-      opacity 0.5s ease,
-      background-color 0.5s ease;
-  }
 }
 
 .swiper {
