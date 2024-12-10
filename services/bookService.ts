@@ -1,4 +1,3 @@
-import { useCacheStore } from '~/stores/cache'
 const BASE_URL = 'https://booknookapi-production.up.railway.app/books'
 
 export const getBooks = async () => {
