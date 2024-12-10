@@ -14,15 +14,14 @@ html {
 }
 
 body {
-  background-color: var(--c-black);
+  background-color: var(--c-graphite);
   font-family: var(--f-font-regular);
   color: var(--c-black);
   min-height: 100vh;
   font-size: 100%;
   padding-left: 7rem;
   @include responsive() {
-    padding-left: 0;
-    padding-bottom: 4.5rem;
+    padding: 0 0 4.5rem 0;
   }
 }
 
