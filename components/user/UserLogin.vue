@@ -62,6 +62,9 @@ const loginUser = async () => {
   box-shadow: 0 0.25rem 0.625rem rgba(0, 0, 0, 0.1);
   border-radius: 0.5rem;
   background-color: var(--c-black);
+  @include responsive() {
+    height: 92vh;
+  }
   &__title {
     font-size: 2rem;
     margin-bottom: 2rem;

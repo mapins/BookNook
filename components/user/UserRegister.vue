@@ -96,8 +96,11 @@ const registerUser = async () => {
   align-items: center;
   margin: 0 auto;
   padding: 2rem;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: var(--c-black);
   border-radius: 0.5rem;
+  @include responsive() {
+    height: 92vh;
+  }
   &__title {
     text-align: center;
     margin-bottom: 1.5rem;
@@ -106,6 +109,9 @@ const registerUser = async () => {
   }
   &__form {
     width: 25rem;
+    @include responsive() {
+      width: 20rem;
+    }
   }
   &__group {
     margin-bottom: 1rem;
