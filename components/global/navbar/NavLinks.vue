@@ -31,6 +31,11 @@ const links = ref([
   { name: 'my-books', path: '/my-books', icon: markRaw(Book) },
   { name: 'search', path: '/search', icon: markRaw(Lens) },
 ])
+
+function logout() {
+  userService.logout()
+  reloadNuxtApp()
+}
 </script>
 <template>
   <section class="nav-link">
@@ -70,7 +75,7 @@ const links = ref([
       </li>
       <li v-if="isUserLogged" class="nav-link__li">
         <div class="nav-link__logged">
-          <NuxtLink to="/" class="nav-link__leave" @click="userService.logout()">
+          <NuxtLink to="/" class="nav-link__leave" @click="logout()">
             <SvgLeave />
           </NuxtLink>
         </div>
