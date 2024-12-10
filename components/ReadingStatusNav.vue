@@ -15,7 +15,6 @@ const getBooksByStatus = async (
   status: BooksStatusByUser['status'],
   rating: number | null,
 ) => {
-  console.log(status)
   books.value = []
   selectedStatus.value = status
 
@@ -45,8 +44,8 @@ watch(selectedRating, (newRating) => {
 </script>
 
 <template>
-  <div class="info-navigator">
-    <div class="buttons">
+  <div class="my-books">
+    <div class="my-books__buttons">
       <button
         v-for="(status, index) in ['read', 'reading', 'desired']"
         :key="index"
@@ -62,7 +61,7 @@ watch(selectedRating, (newRating) => {
     </div>
     <div class="my-books__select">
       <select v-model="selectedRating">
-        <option :value="null">Ninguna estrella</option>
+        <option :value="null">Todos</option>
         <option :value="1">⭐</option>
         <option :value="2">⭐⭐</option>
         <option :value="3">⭐⭐⭐</option>
@@ -76,7 +75,7 @@ watch(selectedRating, (newRating) => {
 </template>
 
 <style scoped lang="scss">
-.info-navigator {
+.my-books {
   display: flex;
   flex-direction: column;
   margin: 0 auto;
@@ -84,41 +83,38 @@ watch(selectedRating, (newRating) => {
   background-color: var(--c-graphite);
   color: var(--c-white);
   height: 100vh;
-  padding: var(--s-padding-lateral);
+  padding: 0 var(--s-padding-lateral);
   @include responsive() {
     padding: 0 var(--s-padding-lateral-mobile);
+    height: 92vh;
   }
-}
-
-.buttons {
-  display: flex;
-  justify-content: center;
-  gap: 0.625rem;
-  padding-top: 1rem;
-  button {
-    margin: 0 3rem;
-    padding: 0 0 0.5rem;
-    font-size: 1.2rem;
-    color: var(--c-grey-medium);
-    cursor: pointer;
-    transition:
-      background-color 0.3s,
-      color 0.3s;
-    @include responsive() {
-      font-size: 1rem;
-      margin: 0 1rem;
+  &__buttons {
+    display: flex;
+    justify-content: center;
+    gap: 0.625rem;
+    padding-top: 1rem;
+    button {
+      margin: 0 3rem;
+      padding: 0 0 0.5rem;
+      font-size: 1.2rem;
+      color: var(--c-grey-medium);
+      cursor: pointer;
+      transition:
+        background-color 0.3s,
+        color 0.3s;
+      @include responsive() {
+        font-size: 0.8rem;
+        margin: 0 1rem;
+      }
+    }
+    button:hover {
+      color: var(--c-white);
+    }
+    button.active {
+      color: var(--c-white);
+      border-bottom: 0.2rem solid var(--c-white);
     }
   }
-  button:hover {
-    color: var(--c-white);
-  }
-  button.active {
-    color: var(--c-white);
-    border-bottom: 0.2rem solid var(--c-white);
-  }
-}
-
-.my-books {
   &__select {
     position: relative;
     display: flex;
@@ -127,8 +123,8 @@ watch(selectedRating, (newRating) => {
     margin: 0 auto;
     padding: 1rem;
     @include responsive() {
-      margin: auto;
-      padding-left: 0;
+      margin: 0 auto;
+      max-width: 14rem;
     }
     select {
       appearance: none;
@@ -143,6 +139,9 @@ watch(selectedRating, (newRating) => {
       cursor: pointer;
       box-shadow: 0 0.25rem 0.375rem rgba(0, 0, 0, 0.1);
       transition: all 0.3s ease-in-out;
+      @include responsive() {
+        padding: 0.5rem 1rem;
+      }
       &:hover {
         background-color: var(--c-black);
       }

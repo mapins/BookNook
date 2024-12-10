@@ -39,8 +39,6 @@ const handleSubmit = async () => {
       email_address: '',
       password: '',
     }
-
-    console.log('Perfil actualizado exitosamente.')
   }
 }
 
@@ -61,76 +59,89 @@ const deleteUser = async () => {
 </script>
 
 <template>
-  <section class="user-edit">
-    <h1>Editar Perfil</h1>
-    <form @submit.prevent="handleSubmit">
-      <div class="form-group">
-        <label for="firstName">Nombre</label>
-        <input
-          type="text"
-          id="firstName"
-          v-model="formData.first_name"
-          :placeholder="placeholders.first_name"
-        />
-      </div>
+  <div class="user">
+    <section class="user-edit">
+      <h1>Editar Perfil</h1>
+      <form @submit.prevent="handleSubmit">
+        <div class="form-group">
+          <label for="firstName">Nombre</label>
+          <input
+            type="text"
+            id="firstName"
+            v-model="formData.first_name"
+            :placeholder="placeholders.first_name"
+          />
+        </div>
 
-      <div class="form-group">
-        <label for="lastName">Apellidos</label>
-        <input
-          type="text"
-          id="lastName"
-          v-model="formData.last_name"
-          :placeholder="placeholders.last_name"
-        />
-      </div>
+        <div class="form-group">
+          <label for="lastName">Apellidos</label>
+          <input
+            type="text"
+            id="lastName"
+            v-model="formData.last_name"
+            :placeholder="placeholders.last_name"
+          />
+        </div>
 
-      <div class="form-group">
-        <label for="username">Nombre de usuario</label>
-        <input
-          type="text"
-          id="username"
-          v-model="formData.user_handle"
-          :placeholder="placeholders.user_handle"
-        />
-      </div>
+        <div class="form-group">
+          <label for="username">Nombre de usuario</label>
+          <input
+            type="text"
+            id="username"
+            v-model="formData.user_handle"
+            :placeholder="placeholders.user_handle"
+          />
+        </div>
 
-      <div class="form-group">
-        <label for="email">Correo Electrónico</label>
-        <input
-          type="email"
-          id="email"
-          v-model="formData.email_address"
-          :placeholder="placeholders.email_address"
-        />
-      </div>
+        <div class="form-group">
+          <label for="email">Correo Electrónico</label>
+          <input
+            type="email"
+            id="email"
+            v-model="formData.email_address"
+            :placeholder="placeholders.email_address"
+          />
+        </div>
 
-      <div class="form-group">
-        <label for="password">Contraseña</label>
-        <input
-          type="password"
-          v-model="formData.password"
-          placeholder="Nueva contraseña"
-        />
-      </div>
+        <div class="form-group">
+          <label for="password">Contraseña</label>
+          <input
+            type="password"
+            v-model="formData.password"
+            placeholder="Nueva contraseña"
+          />
+        </div>
 
-      <button type="submit" class="btn-save">Guardar Cambios</button>
+        <button type="submit" class="btn-save">Guardar Cambios</button>
 
-      <p class="user-edit__delete">
-        ¿Desea eliminar su cuenta?
-        <NuxtLink @click="deleteUser" class="user-edit__delete-link">
-          Eliminar cuenta
-        </NuxtLink>
-      </p>
-    </form>
-  </section>
+        <p class="user-edit__delete">
+          ¿Desea eliminar su cuenta?
+          <NuxtLink @click="deleteUser" class="user-edit__delete-link">
+            Eliminar cuenta
+          </NuxtLink>
+        </p>
+      </form>
+    </section>
+  </div>
 </template>
 
 <style scoped lang="scss">
+.user {
+  width: 100%;
+  height: 100vh;
+  background-color: var(--c-black);
+}
+
 .user-edit {
-  color: white;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: var(--c-white);
   max-width: 37.5rem;
-  margin: 0 auto;
+  margin: auto;
   padding: 2rem;
+  background-color: var(--c-black);
   h1 {
     text-align: center;
     margin-bottom: 1rem;
@@ -154,14 +165,15 @@ const deleteUser = async () => {
     width: 100%;
     padding: 1rem;
     background-color: var(--c-primary);
-    color: white;
+    color: var(--c-white);
     text-align: center;
     border: none;
     border-radius: 0.25rem;
     cursor: pointer;
     font-size: 1.2rem;
+    transition: all 0.3s ease-in-out;
     &:hover {
-      background-color: var(--c-primary-hover);
+      background-color: var(--c-primary-dark);
     }
   }
   &__delete {

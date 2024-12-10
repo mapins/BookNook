@@ -60,6 +60,7 @@ const loginUser = async () => {
   padding: 2rem;
   box-shadow: 0 0.25rem 0.625rem rgba(0, 0, 0, 0.1);
   border-radius: 0.5rem;
+  background-color: var(--c-black);
   &__title {
     font-size: 2rem;
     margin-bottom: 2rem;

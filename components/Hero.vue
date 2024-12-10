@@ -45,6 +45,7 @@ defineProps<{
   background-repeat: no-repeat;
   @include responsive() {
     padding: 3rem var(--s-padding-lateral-mobile);
+    height: 40vh;
   }
   &__content {
     max-width: 40rem;

@@ -16,7 +16,6 @@ const errorMessage = ref<string>('')
 const registerUser = async () => {
   try {
     const newUser = await userService.register(user.value)
-    console.log('Usuario registrado:', newUser)
     errorMessage.value = ''
     navigateTo('/')
   } catch (error) {

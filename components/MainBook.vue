@@ -19,7 +19,6 @@ onMounted(async () => {
     const bookCategories = await getBookCategories(fetchedBook.book_id)
     book.value = fetchedBook
     categories.value = bookCategories
-    console.log(book.value)
   } catch (error) {
     console.error('Error al obtener los libros:', error)
   }

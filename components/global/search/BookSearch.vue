@@ -78,7 +78,7 @@ const removeCategory = (categoryId: number) => {
     </div>
 
     <div class="book-search__categories">
-      <h3 class="book-search__categories-title">Categorias</h3>
+      <h3 class="book-search__categories-title"><strong>Categorias:</strong></h3>
       <div class="book-search__category-options">
         <label
           v-for="category in categories"
@@ -130,11 +130,18 @@ const removeCategory = (categoryId: number) => {
   width: 93vw;
   @include responsive() {
     width: 100%;
+    height: 90vh;
+    padding: 1rem;
   }
   &__content {
     display: flex;
     align-items: center;
     height: 4vh;
+    @include responsive() {
+      align-items: stretch;
+      gap: 0.5rem;
+      height: auto;
+    }
   }
   &__input {
     flex: 1;
@@ -143,6 +150,9 @@ const removeCategory = (categoryId: number) => {
     background: none;
     border: 0;
     outline: 0;
+    @include responsive() {
+      font-size: 1rem;
+    }
     &:focus {
       border-color: var(--c-primary-hover);
       outline: none;
@@ -158,45 +168,24 @@ const removeCategory = (categoryId: number) => {
     color: white;
     cursor: pointer;
     transition: background-color 0.3s;
+    @include responsive() {
+      padding: 0.4rem 0.8rem;
+    }
     &:hover {
       background-color: var(--c-primary-hover);
     }
-  }
-  &__selected-categories {
-    display: flex;
-    flex-wrap: wrap;
-    margin-top: 1rem;
-  }
-  &__selected-category {
-    display: flex;
-    align-items: center;
-    background-color: var(--c-primary);
-    padding: 0.5rem 1rem;
-    margin-right: 1rem;
-    margin-bottom: 1rem;
-    border-radius: 1rem;
-    color: white;
-    transition: background-color 0.3s;
-    &:hover {
-      background-color: var(--c-primary-hover);
-    }
-  }
-  &__remove-category {
-    padding: 0 0 0 1rem;
-    background: none;
-    border: none;
-    color: white;
-    cursor: pointer;
   }
   &__categories {
     margin-top: 1rem;
     height: 10vh;
     @include responsive() {
       margin-top: 0.5rem;
+      height: auto;
     }
   }
   &__categories-title {
     font-size: 1.5rem;
+    color: var(--c-primary);
     margin-bottom: 1rem;
     @include responsive() {
       font-size: 1.2rem;
@@ -208,26 +197,74 @@ const removeCategory = (categoryId: number) => {
     gap: 0.5rem;
     font-size: 1.2rem;
     @include responsive() {
-      font-size: 0.8rem;
+      font-size: 0.9rem;
+      gap: 0.5rem;
     }
   }
   &__category-option {
     display: flex;
-    align-items: center;
-    margin-bottom: 0.8rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    font-size: 1.2rem;
+    text-decoration: underline;
     cursor: pointer;
-    position: relative;
+    transition:
+      transform 0.3s,
+      color 0.3s;
     &:hover {
-      text-decoration: underline var(--c-white);
+      transform: scale(1.05);
+      color: var(--c-primary);
+    }
+    @include responsive() {
+      font-size: 0.9rem;
+      gap: 0.5rem;
     }
   }
-  &__category-option-input {
-    margin-right: 0.5rem;
+  &__selected-categories {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 0.8rem;
+    @include responsive() {
+      margin-top: 0.5rem;
+    }
+  }
+  &__selected-category {
+    display: flex;
+    align-items: center;
+    background-color: var(--c-primary);
+    padding: 0.5rem 1rem;
+    margin: 1rem 1rem 0 1rem;
+    border-radius: 1rem;
+    color: white;
+    transition: background-color 0.3s;
+    @include responsive() {
+      padding: 0.4rem 0.8rem;
+      margin-right: 0.7rem;
+      margin-bottom: 0.7rem;
+    }
+  }
+  &__remove-category {
+    padding: 0 0 0 1rem;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    @include responsive() {
+      padding: 0 0 0 0.5rem;
+    }
+    transition: transform 0.5s;
+    &:hover {
+      transform: scale(1.05);
+    }
   }
   &__listing {
-    margin-top: 2rem;
+    margin-top: 1rem;
     border-top: 0.0625rem solid var(--c-grey-light);
     padding-top: 1rem;
+    @include responsive() {
+      margin-top: 0.5rem;
+      padding-top: 0.5rem;
+    }
   }
 }
 </style>
