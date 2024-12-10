@@ -6,6 +6,7 @@ export function useUser() {
   const authStore = useAuthStore()
   const { userId } = storeToRefs(authStore)
   const currentUser = ref<UpdateUserData | null>(null)
+  const errorMessage = ref<string | null>(null)
 
   const fetchUser = async () => {
     try {
@@ -28,6 +29,7 @@ export function useUser() {
   const updateUser = async (updatedFields: { [key: string]: string }) => {
     try {
       await userService.updateUser(userId.value, updatedFields)
+
       if (currentUser.value) {
         // Actualizo los campos de mi elemento local
         Object.keys(updatedFields).forEach((field) => {
@@ -36,8 +38,13 @@ export function useUser() {
           }
         })
       }
+      errorMessage.value = null
     } catch (error) {
-      console.error('Error al actualizar los campos:', error)
+      if (error instanceof Error) {
+        errorMessage.value = error.message
+      } else {
+        errorMessage.value = 'Error en el registro. Intenta de nuevo.'
+      }
     }
   }
 
@@ -46,5 +53,6 @@ export function useUser() {
     fetchUser,
     placeholders,
     updateUser,
+    errorMessage,
   }
 }
