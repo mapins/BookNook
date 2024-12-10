@@ -121,7 +121,7 @@ const removeCategory = (categoryId: number) => {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  color: white;
+  color: var(--c-white);
   position: fixed;
   z-index: 10;
   background-color: var(--c-graphite);
@@ -146,7 +146,7 @@ const removeCategory = (categoryId: number) => {
   &__input {
     flex: 1;
     font-size: 1.3rem;
-    color: #fff;
+    color: var(--c-white);
     background: none;
     border: 0;
     outline: 0;
@@ -165,7 +165,7 @@ const removeCategory = (categoryId: number) => {
     border: none;
     border-radius: 0.5rem;
     padding: 0.5rem 1rem;
-    color: white;
+    color: var(--c-white);
     cursor: pointer;
     transition: background-color 0.3s;
     @include responsive() {
@@ -235,7 +235,7 @@ const removeCategory = (categoryId: number) => {
     padding: 0.5rem 1rem;
     margin: 1rem 1rem 0 1rem;
     border-radius: 1rem;
-    color: white;
+    color: var(--c-white);
     transition: background-color 0.3s;
     @include responsive() {
       padding: 0.4rem 0.8rem;
@@ -247,7 +247,7 @@ const removeCategory = (categoryId: number) => {
     padding: 0 0 0 1rem;
     background: none;
     border: none;
-    color: white;
+    color: var(--c-white);
     cursor: pointer;
     @include responsive() {
       padding: 0 0 0 0.5rem;

@@ -88,7 +88,7 @@ const registerUser = async () => {
 
 <style scoped lang="scss">
 .register {
-  color: white;
+  color: var(--c-white);
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -125,7 +125,7 @@ const registerUser = async () => {
     width: 100%;
     padding: 0.8rem;
     background-color: var(--c-primary);
-    color: white;
+    color: var(--c-white);
     border: none;
     border-radius: 0.25rem;
     cursor: pointer;
