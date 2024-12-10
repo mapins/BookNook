@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { markRaw } from 'vue'
 import MainButton from '@/components/ui/buttons/MainButton.vue'
 import { useAuthStore } from '@/stores/auth'
 import Book from '~/components/svg/Book.vue'
@@ -14,6 +15,10 @@ const { user } = storeToRefs(authStore)
 const isUserLogged = computed(() => !!user.value)
 const selectedLink = ref(route.path)
 
+onMounted(() => {
+  selectedLink.value = route.path
+})
+
 watch(
   () => route.path,
   (newPath) => {
@@ -22,9 +27,9 @@ watch(
 )
 
 const links = ref([
-  { name: 'home', path: '/', icon: Home },
-  { name: 'my-books', path: '/my-books', icon: Book },
-  { name: 'search', path: '/search', icon: Lens },
+  { name: 'home', path: '/', icon: markRaw(Home) },
+  { name: 'my-books', path: '/my-books', icon: markRaw(Book) },
+  { name: 'search', path: '/search', icon: markRaw(Lens) },
 ])
 </script>
 <template>
@@ -75,8 +80,11 @@ const links = ref([
 </template>
 
 <style lang="scss" scoped>
+@import '/assets/styles/load.css';
+
 .nav-link {
   height: 100%;
+  animation: fadeInUp 1.5s ease-out;
   @include responsive() {
     z-index: 5;
     width: 80vw;
