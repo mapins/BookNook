@@ -55,6 +55,22 @@ export const userService = {
       throw error
     }
   },
+  async decodeToken() {
+    const response = await fetch(`${BASE_URL}/tokens`, {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+    if (!response.ok) {
+      const errorData = await response.json()
+      throw new Error(errorData.message || 'Error sending cookies')
+    }
+    const data = await response.json()
+
+    return data
+  },
 
   async logout() {
     try {
