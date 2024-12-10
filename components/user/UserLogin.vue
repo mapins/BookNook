@@ -13,6 +13,7 @@ const errorMessage = ref<string>('')
 const loginUser = async () => {
   try {
     await userService.login(user.value)
+    await alertService.successLogin()
     errorMessage.value = ''
     await navigateTo('/')
   } catch (error) {
@@ -87,7 +88,7 @@ const loginUser = async () => {
     width: 100%;
     padding: 1rem;
     background-color: var(--c-primary);
-    color: white;
+    color: var(--c-white);
     border: none;
     border-radius: 0.25rem;
     font-size: 1rem;

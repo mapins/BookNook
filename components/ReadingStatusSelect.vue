@@ -42,6 +42,7 @@ const saveStatus = async () => {
   if (userId.value && bookReadingStatus.value?.status !== null) {
     try {
       await readingStatusService.saveStatus(bookReadingStatus.value)
+      await alertService.successSaveStatus()
     } catch (error) {
       console.error('Error saving status:', error)
     }
@@ -54,6 +55,7 @@ const deleteStatus = async () => {
         user_id: userId.value,
         book_id: props.bookId,
       })
+      await alertService.successRemoveStatus()
 
       if (bookReadingStatus.value) bookReadingStatus.value.status = null
     } catch (error) {
@@ -62,24 +64,25 @@ const deleteStatus = async () => {
   }
 }
 
-watch(
-  () => bookReadingStatus.value?.status,
-  async (newStatus, oldStatus) => {
-    if (!userId.value) return
-    if (newStatus !== 'not_found') {
-      await saveStatus()
-    } else {
-      await deleteStatus()
-    }
-  },
-)
+async function changeStatus(status: any) {
+  if (!userId.value) return
+  if (status !== 'not_found') {
+    await saveStatus()
+  } else {
+    await deleteStatus()
+  }
+}
 </script>
 <template>
   <div class="reading-status" @click="handleActionIfNotLoggedIn">
     <form class="reading-status__form">
       <div class="reading-status__form-group">
         <label for="status" class="reading-status__label">Estado:</label>
-        <select v-model="bookReadingStatus.status" class="reading-status__select">
+        <select
+          v-model="bookReadingStatus.status"
+          @change="changeStatus(bookReadingStatus?.status)"
+          class="reading-status__select"
+        >
           <option value="not_found"></option>
           <option value="read">Leído</option>
           <option value="reading">En progreso</option>

@@ -34,6 +34,7 @@ const setRating = async (newRating: number) => {
 const saveRating = async (bookRating: Rating) => {
   try {
     const currentRating = await ratingsService.saveRating(bookRating)
+    await alertService.successSaveRating()
     bookRating.rating = currentRating.rating
   } catch (error) {
     console.error('Error saving rating:', error)
@@ -42,10 +43,11 @@ const saveRating = async (bookRating: Rating) => {
 
 const deleteRating = async () => {
   try {
-    const result = await ratingsService.deleteRating({
+    await ratingsService.deleteRating({
       user_id: userId.value,
       book_id: bookRating.value.book_id,
     })
+    await alertService.successRemoveRating()
 
     bookRating.value.rating = 0
   } catch (error) {
