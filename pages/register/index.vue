@@ -2,6 +2,7 @@
 import UserRegister from '@/components/user/UserRegister.vue'
 definePageMeta({
   layout: 'no-footer',
+  middleware: 'auth',
 })
 </script>
 <template>
