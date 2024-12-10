@@ -18,12 +18,71 @@ export const alertService = {
 
     return confirmDelete
   },
+  async successLogin() {
+    const { value: successLogin } = await Swal.fire({
+      title: 'Te has logeado correctamente!',
+      icon: 'success',
+      customClass: {
+        popup: 'dark',
+      },
+    })
+
+    return successLogin
+  },
+  async successSaveStatus() {
+    const { value: successSaveStatus } = await Swal.fire({
+      title: 'El estado del libro se ha guardado correctamente!',
+      icon: 'success',
+      customClass: {
+        popup: 'dark',
+      },
+    })
+
+    return successSaveStatus
+  },
+  async successRemoveStatus() {
+    const { value: successRemoveStatus } = await Swal.fire({
+      title: 'El estado del libro se ha eliminado correctamente!',
+      icon: 'success',
+      customClass: {
+        popup: 'dark',
+      },
+    })
+
+    return successRemoveStatus
+  },
+
+  async successSaveRating() {
+    const { value: successSaveRating } = await Swal.fire({
+      title: 'La valoración del libro se ha guardado correctamente!',
+      icon: 'success',
+      customClass: {
+        popup: 'dark',
+      },
+    })
+
+    return successSaveRating
+  },
+  async successRemoveRating() {
+    const { value: successRemoveRating } = await Swal.fire({
+      title: 'La valoración del libro se ha eliminado correctamente!',
+      icon: 'success',
+      customClass: {
+        popup: 'dark',
+      },
+    })
+
+    return successRemoveRating
+  },
 
   showSuccess(message: string) {
     Swal.fire({
       icon: 'success',
       title: 'Éxito',
       text: message,
+      customClass: {
+        popup: 'dark',
+      },
     })
   },
 
@@ -32,6 +91,9 @@ export const alertService = {
       icon: 'error',
       title: 'Error',
       text: message,
+      customClass: {
+        popup: 'dark',
+      },
     })
   },
 }
