@@ -21,10 +21,10 @@ defineProps<{
 </template>
 <style scoped lang="scss">
 .card {
-  width: 15rem;
+  width: 17rem;
   height: 28rem;
-  padding: 1rem;
   color: var(--c-white);
+  padding: 1rem;
   transition:
     transform 0.2s,
     box-shadow 0.2s;
@@ -35,9 +35,9 @@ defineProps<{
     text-decoration: none;
   }
   &__img {
-    height: 18.3125rem;
-    width: 12.1875rem;
-    object-fit: cover;
+    height: 21rem;
+    width: 15rem;
+    object-fit: fill;
     border-radius: 0.5rem;
     transition:
       transform 0.5s,

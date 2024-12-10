@@ -148,7 +148,7 @@ watch(selectedRating, (newRating) => {
       &:focus {
         outline: none;
         border-color: var(--c-primary);
-        box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.2);
+        box-shadow: 0 0 0 0.25rem rgba(255, 0, 85, 0.2);
       }
     }
     &::after {

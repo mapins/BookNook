@@ -8,7 +8,7 @@ import { Keyboard, Scrollbar, Navigation } from 'swiper/modules'
 import Card from '@/components/Card.vue'
 import type { Book } from '@/interfaces'
 
-const modules = [Keyboard, Scrollbar, Navigation]
+const modules = [Keyboard, Navigation]
 
 defineProps<{
   books: Book[]
@@ -30,7 +30,6 @@ defineProps<{
         1024: { slidesPerView: 3, slidesPerGroup: 3 },
         1280: { slidesPerView: 4, slidesPerGroup: 4 },
       }"
-      :scrollbar="true"
       :navigation="{
         nextEl: '.swiper-button-next',
         prevEl: '.swiper-button-prev',
@@ -54,9 +53,9 @@ defineProps<{
 
 <style scoped lang="scss">
 .carousel {
-  height: auto;
+  height: 32rem;
   background-color: var(--c-graphite);
-  padding: var(--s-padding-lateral);
+  margin: 0 5rem;
   @include responsive() {
     padding: 3rem var(--s-padding-lateral-mobile);
   }
@@ -65,32 +64,34 @@ defineProps<{
 .swiper-button-next,
 .swiper-button-prev {
   display: flex;
-  padding: 1em;
   width: 2.5em;
   height: 100%;
-  top: 1rem;
+  top: -2rem;
   &::after {
     font-size: 2em;
     font-weight: 1000;
     color: var(--c-white);
   }
   &:hover {
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.2);
     color: var(--c-white);
-    transition: ease 0.0625rem;
+    transition:
+      opacity 0.5s ease,
+      background-color 0.5s ease;
   }
 }
 
 .swiper {
   width: 100%;
+  height: 100%;
 }
 
 .swiper-slide {
-  display: flex;
+  /* display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  position: relative;
+  position: relative; */
 }
 
 .swiper-slide img {

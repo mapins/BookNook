@@ -4,7 +4,7 @@ defineProps<{
   authors?: { name: string }[]
   publicationDate?: number
   pageCount?: number
-  subtitle: string
+  subtitle?: string
   backgroundImage?: string
   buttonText?: string
   buttonLink?: string
@@ -60,6 +60,11 @@ defineProps<{
   &__subtitle {
     font-size: 1.25rem;
     margin-bottom: 1.5rem;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 3;
     @include responsive() {
       font-size: 1rem;
     }

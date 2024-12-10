@@ -33,7 +33,6 @@ defineProps<{
     padding: 0;
     margin: 0;
     list-style: none;
-    overflow-y: auto;
   }
   &__item {
     flex: 1 1 100%;
@@ -43,13 +42,16 @@ defineProps<{
       max-width: calc(50% - 1rem);
     }
     @media (min-width: 64rem) {
-      flex: 1 1 calc(25% - 1rem);
+      flex: 1 1 calc(33% - 1rem);
+      max-width: calc(33% - 1rem);
+    }
+    @media (min-width: 80rem) {
+      flex: calc(25% - 1rem);
       max-width: calc(25% - 1rem);
     }
 
     display: flex;
     justify-content: center;
-    padding: 1rem;
   }
 }
 </style>
