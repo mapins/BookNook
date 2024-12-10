@@ -5,7 +5,7 @@ export default defineNuxtRouteMiddleware((to, from) => {
   const { user } = storeToRefs(authStore)
 
   if (user.value && (to.path === '/login' || to.path === '/register')) {
-    return abortNavigation()
+    return navigateTo('/')
   }
 
   if (!user.value && to.path !== '/login' && to.path !== '/register') {
