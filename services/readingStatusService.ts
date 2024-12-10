@@ -48,8 +48,6 @@ export const readingStatusService = {
   },
 
   async getBookByStatus(currentUserBook: currentUserBook) {
-    console.log(currentUserBook.user_id)
-
     try {
       const response = await fetch(
         `${BASE_URL}/user/${currentUserBook.user_id}/book/${currentUserBook.book_id}/status`,

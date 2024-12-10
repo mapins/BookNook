@@ -15,8 +15,6 @@ export const getBooks = async () => {
 }
 
 export const getBookById = async (bookId: number) => {
-  console.log('SEMETI')
-
   try {
     const response = await fetch(`${BASE_URL}/${bookId}`)
     if (!response.ok) throw new Error('Error al obtener el libro')

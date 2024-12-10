@@ -111,7 +111,6 @@ export const userService = {
   },
 
   async updateUser(userId: number | null, updatedData: { [key: string]: string }) {
-    console.log(updatedData)
     try {
       const response = await fetch(`${BASE_URL}/${userId}`, {
         method: 'PUT',
@@ -155,7 +154,6 @@ export const userService = {
       }
 
       const result = await response.json()
-      console.log(result.message)
       const authStore = useAuthStore()
       authStore.logout()
     } catch (error) {
