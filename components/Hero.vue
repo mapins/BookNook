@@ -43,6 +43,7 @@ defineProps<{
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  background-color: var(--c-black);
   @include responsive() {
     padding: 3rem var(--s-padding-lateral-mobile);
     height: 40vh;

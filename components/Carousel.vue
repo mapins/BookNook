@@ -57,7 +57,8 @@ defineProps<{
   background-color: var(--c-graphite);
   margin: 0 5rem;
   @include responsive() {
-    padding: 3rem var(--s-padding-lateral-mobile);
+    padding: 1rem var(--s-padding-lateral-mobile);
+    margin: 0 2rem;
   }
 }
 
@@ -87,11 +88,11 @@ defineProps<{
 }
 
 .swiper-slide {
-  /* display: flex;
+  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  position: relative; */
+  position: relative;
 }
 
 .swiper-slide img {
